@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">mjramMobile</string>
-    //strings login
+    <!--strings login-->
     <string name="txt_email">Insira o email</string>
     <string name="txt_password">Insira a password</string>
+    <string name="txt_Email_invalido">Email invalido</string>
+    <string name="txt_pass_invalida">Password invalida</string>
+    <!--strings aviao-->
     <string name="col1">Lista Aviões</string>
     <string name="header_Lista_aviao">Lista de aviao</string>
     <string name="Detalhes_aviao">Detalhes do Avião</string>
+
 
 </resources>
