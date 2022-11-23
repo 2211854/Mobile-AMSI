@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dourado_icon">#ba8a48</color>
+    <color name="cinzento_icon">#DCDCDC</color>
+    <color name="preto_bar">#2B2B2B</color>
 </resources>

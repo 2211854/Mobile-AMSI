@@ -4,4 +4,6 @@
     <string name="txt_email">Insira o email</string>
     <string name="txt_password">Insira a password</string>
     <string name="col1">Lista Aviões</string>
+    <string name="header_Lista_aviao">Lista de aviao</string>
+
 </resources>
