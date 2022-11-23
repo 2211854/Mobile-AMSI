@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="40dp"
+    tools:context=".vistas.DetalhesActivity">
+
+    <TableRow
+        android:clickable="false"
+        android:background="@drawable/table_detalhes_cima"
+        >
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/Detalhes_aviao"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+
+
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_combustivel"
+            android:drawableLeft="@drawable/ic_combustivel_detalhes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="Combustivel"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="1400 000L(90%)"
+            android:textSize="12sp">
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_first_classe"
+            android:drawableLeft="@drawable/ic_combustivel_detalhes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="Assentos 1ªclasse"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_Business"
+            android:drawableLeft="@drawable/ic_combustivel_detalhes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="Assentos Business"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_Economica"
+            android:drawableLeft="@drawable/ic_combustivel_detalhes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="Assentos Económicos"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_baixo">
+        <TextView
+            android:id="@+id/tv_Premium"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="Assentos Premium"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_combustivel_detalhes"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+   <!-- <ListView
+
+        android:id="@+id/lvAviao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+    </ListView>-->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
+
+    </TableLayout>
