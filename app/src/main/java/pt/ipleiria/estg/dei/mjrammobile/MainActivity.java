@@ -20,6 +20,5 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, DetalhesActivity.class);
         startActivity(intent);
-        finish();
     }
 }
