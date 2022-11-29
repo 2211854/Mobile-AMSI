@@ -6,43 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <!--<include layout="@layout/app_bar">
-    </include>-->
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"/>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
-
-
-        <Button
-            android:id="@+id/btnPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_button_menu"
-            android:backgroundTint="@color/dourado_icon"
-            android:onClick="onClickAviao"
-            android:drawableTop="@drawable/ic_email_login"
-            android:text="Perfil"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/btnAvioes"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/custom_button_menu"
-            android:backgroundTint="@color/dourado_icon"
-            android:onClick="onClickAviao"
-            android:layout_weight="1"
-            android:text="Aviões"
-            android:textColor="@android:color/white" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include layout="@layout/app_bar"></include>
     </LinearLayout>
 
+    <include layout="@layout/menu">
+    </include>
 
 </LinearLayout>

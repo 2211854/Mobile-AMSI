@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="40dp"
+    android:layout_height="match_parent"
     tools:context=".vistas.TabelasActivity">
-
-
+    <include layout="@layout/app_bar">
+    </include>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
     <TableRow
         android:background="@color/dourado_icon"
         android:clickable="false"
         >
-
         <TextView
 
             android:layout_width="0dp"
@@ -33,5 +39,7 @@
         android:layout_height="wrap_content">
 
     </ListView>
-
-</TableLayout>
+    </TableLayout>
+    <include layout="@layout/menu">
+    </include>
+</FrameLayout>

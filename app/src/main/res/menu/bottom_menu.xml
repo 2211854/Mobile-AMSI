@@ -4,10 +4,12 @@
     <item
         android:id="@+id/btn_perfil"
         android:title="Perfil"
+        android:onClick="onClickPerfil"
         android:icon="@drawable/ic_person_menu"
         />
     <item
         android:id="@+id/btn_avioes"
         android:title="Aviões"
+        android:onClick="onClickAviao"
         android:icon="@drawable/ic_aviao_menu"/>
 </menu>
