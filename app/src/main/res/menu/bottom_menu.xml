@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/btn_perfil"
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_aviao_menu"/>
+    <item
+        android:id="@+id/perfil"
         android:title="Perfil"
         android:icon="@drawable/ic_person_menu"
         />
     <item
-        android:id="@+id/btn_avioes"
+        android:id="@+id/avioes"
         android:title="Aviões"
         android:icon="@drawable/ic_aviao_menu"/>
 </menu>
