@@ -8,18 +8,11 @@ import android.view.View;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 
-public class DetalhesActivity extends AppCompatActivity {
+public class ListaTarefasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhes);
+        setContentView(R.layout.activity_lista_tarefas);
     }
-
-    public void onClickListaTarefas(View view) {
-
-        Intent intent = new Intent(this, ListaTarefasActivity.class);
-        startActivity(intent);
-    }
-
 }

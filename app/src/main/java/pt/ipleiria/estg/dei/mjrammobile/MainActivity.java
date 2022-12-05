@@ -1,7 +1,6 @@
 package pt.ipleiria.estg.dei.mjrammobile;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAviao(View view) {
+
+        Intent intent = new Intent(this, DetalhesActivity.class);
+        startActivity(intent);
+    }
+    public void onClickPerfil(View view) {
 
         Intent intent = new Intent(this, DetalhesActivity.class);
         startActivity(intent);
