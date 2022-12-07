@@ -13,13 +13,6 @@
         android:theme="@style/Theme.MjramMobile"
         tools:targetApi="31">
         <activity
-            android:name=".vistas.DetalhesActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".vistas.LoginActivity"
             android:exported="true">
             <meta-data

@@ -5,15 +5,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
-import pt.ipleiria.estg.dei.mjrammobile.fragments.HomeFragment;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.DetalhesFragment;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaTarefasFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.PerfilFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.TabelasFragment;
-import pt.ipleiria.estg.dei.mjrammobile.vistas.DetalhesActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,14 +27,17 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
 
             switch(item.getItemId()){
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
                 case R.id.perfil:
                     replaceFragment(new PerfilFragment());
                     break;
                 case R.id.avioes:
                     replaceFragment(new TabelasFragment());
+                    break;
+                /*case R.id.btnListaTarefas:
+                    replaceFragment(new DetalhesFragment());
+                    break;*/
+                case R.id.btnListaTarefas:
+                    replaceFragment(new ListaTarefasFragment());
                     break;
             }
 

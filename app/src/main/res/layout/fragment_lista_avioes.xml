@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="40dp"
+    tools:context=".fragments.ListaAvioesFragment">
+
+    <TableRow
+        android:clickable="false"
+        android:background="@drawable/table_detalhes_cima"
+        >
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/lista_aviao"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+
+    <TableRow
+        android:clickable="false"
+        android:background="@drawable/table_detalhes_meio"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="AVIAO NMR 132"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+    </TableRow>
+
+
+
+    <TableRow android:background="@drawable/table_detalhes_meio">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                tools:context=".detalhes_estaticos">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="asgasg" />
+
+                <TextView
+                    android:id="@+id/tvSerie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                tools:context=".detalhes_estaticos">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="gassag" />
+
+                <TextView
+                    android:id="@+id/tvAutor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+    </TableRow>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="0.1" />
+    <Button
+        android:id="@+id/btnListaTarefas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button_detalhes"
+        android:onClick="onClickListaTarefas"
+        android:text="Login"
+        android:textColor="@android:color/white" />
+</TableLayout>
