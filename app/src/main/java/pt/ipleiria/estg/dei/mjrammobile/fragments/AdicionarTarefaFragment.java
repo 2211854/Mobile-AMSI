@@ -12,10 +12,10 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TabelasFragment#newInstance} factory method to
+ * Use the {@link AdicionarTarefaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabelasFragment extends Fragment {
+public class AdicionarTarefaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class TabelasFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TabelasFragment() {
+    public AdicionarTarefaFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class TabelasFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TabelasFragment.
+     * @return A new instance of fragment AdicionarTarefaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabelasFragment newInstance(String param1, String param2) {
-        TabelasFragment fragment = new TabelasFragment();
+    public static AdicionarTarefaFragment newInstance(String param1, String param2) {
+        AdicionarTarefaFragment fragment = new AdicionarTarefaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class TabelasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tabelas, container, false);
+        return inflater.inflate(R.layout.fragment_adicionar_tarefa, container, false);
     }
 }

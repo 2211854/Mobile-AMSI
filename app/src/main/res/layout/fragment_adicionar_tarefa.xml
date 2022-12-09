@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.AdicionarTarefaFragment">
+
+    <TableRow
+        android:clickable="false"
+        android:background="@drawable/table_detalhes_cima"
+        >
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/adicionar_tarefa"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+        </TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+
+        <TextView
+            android:id="@+id/tv_add_designacao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/designacao"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+
+        <EditText
+            android:id="@+id/ED_designacao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:text="Escreva a designação" />
+
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_add_estado"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/estado"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <Spinner
+            android:id="@+id/sp_add_tarefas"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:padding="8sp"
+            android:textColor="@color/black"/>
+    </TableRow>
+
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <TextView
+            android:id="@+id/tv_add_recurso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/recurso"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+
+        <EditText
+            android:id="@+id/ED_recurso"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:text="Escreva o recurso" />
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_baixo">
+        <TextView
+            android:id="@+id/tv_add_hangar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/hangar"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+
+        <EditText
+            android:id="@+id/ED_hangar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:text="Escreva o hangar" />
+    </TableRow>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="0.1" />
+    <Button
+        android:id="@+id/btnAdicionarTarefa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button_detalhes"
+        android:text="Adicionar"
+        android:textColor="@android:color/white" />
+
+</TableLayout>

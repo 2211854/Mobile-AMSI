@@ -8,10 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
-import pt.ipleiria.estg.dei.mjrammobile.fragments.DetalhesFragment;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.AdicionarTarefaFragment;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaAvioesFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaTarefasFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.PerfilFragment;
-import pt.ipleiria.estg.dei.mjrammobile.fragments.TabelasFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,21 +22,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new ListaAvioesFragment());
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item ->{
+        binding.bnvMenu.setOnItemSelectedListener(item ->{
 
             switch(item.getItemId()){
                 case R.id.perfil:
                     replaceFragment(new PerfilFragment());
                     break;
+                case R.id.FB_Add_tarefas:
+                    replaceFragment(new AdicionarTarefaFragment());
+                    break;
                 case R.id.avioes:
-                    replaceFragment(new TabelasFragment());
+                    replaceFragment(new ListaAvioesFragment());
                     break;
                 /*case R.id.btnListaTarefas:
                     replaceFragment(new DetalhesFragment());
                     break;*/
                 case R.id.btnListaTarefas:
+                    replaceFragment(new ListaTarefasFragment());
+                    break;
+                case R.id.btnAdicionarTarefa:
                     replaceFragment(new ListaTarefasFragment());
                     break;
             }

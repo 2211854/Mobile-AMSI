@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ListaTarefasFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <TableRow
+            android:background="@drawable/table_detalhes_cima"
+            android:clickable="false">
 
-</FrameLayout>
+            <TextView
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:padding="10sp"
+                android:text="@string/lista_tarefas"
+                android:textColor="@color/white"
+                android:textSize="20sp"></TextView>
+        </TableRow>
+
+
+        <ListView
+            android:id="@+id/lvTarefas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/table_detalhes_meio">
+
+        </ListView>
+    </TableLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/FB_Add_tarefas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:backgroundTint="@color/dourado_icon"
+        android:elevation="4dp"
+        android:src="@drawable/ic_adicionar_tarefas" />
+
+</RelativeLayout>
