@@ -24,7 +24,6 @@
     <TableRow android:background="@drawable/table_detalhes_meio">
 
         <TextView
-            android:id="@+id/tv_add_designacao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -34,21 +33,20 @@
             android:textSize="20sp">
         </TextView>
 
-
-        <EditText
-            android:id="@+id/ED_designacao"
+        <TextView
+            android:id="@+id/tv_tarefa_designacao"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:gravity="center"
             android:padding="8sp"
             android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:text="Escreva a designação" />
+            android:text="Fazer hamburgueres"
+            android:textSize="15sp"/>
 
     </TableRow>
     <TableRow android:background="@drawable/table_detalhes_meio">
         <TextView
-            android:id="@+id/tv_add_estado"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -58,18 +56,20 @@
             android:textSize="20sp">
         </TextView>
 
-        <Spinner
-            android:id="@+id/sp_add_tarefas"
+        <TextView
+            android:id="@+id/tv_tarefa_estado"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:gravity="center"
             android:padding="8sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:text="Concluido"
+            android:textSize="15sp"/>
     </TableRow>
 
     <TableRow android:background="@drawable/table_detalhes_meio">
         <TextView
-            android:id="@+id/tv_add_recurso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -79,20 +79,19 @@
             android:textSize="20sp">
         </TextView>
 
-
-        <EditText
-            android:id="@+id/ED_recurso"
+        <TextView
+            android:id="@+id/tv_tarefa_Recurso"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:gravity="center"
             android:padding="8sp"
             android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:text="Escreva o recurso" />
+            android:text="fazer hamburgueres"
+            android:textSize="15sp"/>
     </TableRow>
     <TableRow android:background="@drawable/table_detalhes_baixo">
         <TextView
-            android:id="@+id/tv_add_hangar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -102,16 +101,82 @@
             android:textSize="20sp">
         </TextView>
 
-
-        <EditText
-            android:id="@+id/ED_hangar"
+        <TextView
+            android:id="@+id/tv_tarefa_hangar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:gravity="center"
             android:padding="8sp"
             android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:text="Escreva o hangar" />
+            android:text="hangar 3"
+            android:textSize="15sp"/>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_baixo">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/data_registo"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_tarefa_registo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="hangar 3"
+            android:textSize="15sp"/>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_baixo">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/data_inicio"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_tarefa_inicio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="hangar 3"
+            android:textSize="15sp"/>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_baixo">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="8sp"
+            android:text="@string/data_final"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_tarefa_final"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="hangar 3"
+            android:textSize="15sp"/>
     </TableRow>
 
     <Space
@@ -125,7 +190,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_login"
         android:backgroundTint="@color/dourado_icon"
-        android:onClick="onClickTarefa"
         android:text="Back"
         android:textColor="@android:color/white" />
 

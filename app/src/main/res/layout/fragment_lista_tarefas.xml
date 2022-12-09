@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="590dp"
     tools:context=".fragments.ListaTarefasFragment">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TableRow
             android:background="@drawable/table_detalhes_cima"
             android:clickable="false">
@@ -29,7 +30,7 @@
         <ListView
             android:id="@+id/lvTarefas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/table_detalhes_meio">
 
         </ListView>
@@ -41,10 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:clickable="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/dourado_icon"
-        android:elevation="4dp"
-        android:src="@drawable/ic_adicionar_tarefas" />
+        android:clickable="true"
+        android:src="@drawable/ic_adicionar_tarefas"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </RelativeLayout>

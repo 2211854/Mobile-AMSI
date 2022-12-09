@@ -1,14 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.PerfilFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TableRow
+        android:background="@drawable/table_detalhes_cima"
+        android:clickable="false">
 
-</FrameLayout>
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:padding="10sp"
+            android:text="@string/perfil"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <ImageView
+            android:id="@+id/imgEmail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_email_perfil"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+        <EditText
+            android:id="@+id/Et_email"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="gay@email.com"
+            android:textSize="15sp">
+        </EditText>
+    </TableRow>
+    <TableRow android:layout_height="match_parent"
+        android:layout_width="0dp">
+        <ImageView
+            android:id="@+id/imgNib"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_balance_perfil"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="@string/nib"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+
+        <EditText
+            android:id="@+id/Et_Nib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="PT50 1300 1023 1234567890123"
+            android:textColor="@color/black"
+            android:textSize="15sp"></EditText>
+    </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <ImageView
+            android:id="@+id/imgTelemovel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_telemovel_perfil"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="@string/telemovel"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+        <EditText
+            android:id="@+id/Et_telemovel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="913523072"
+            android:textSize="15sp">
+        </EditText>
+    </TableRow>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_weight="0.1" />
+
+    <Button
+        android:id="@+id/btnListaTarefas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button_login"
+        android:backgroundTint="@color/dourado_icon"
+        android:text="Guardar"
+        android:textColor="@android:color/white" />
+
+</TableLayout>

@@ -14,11 +14,18 @@
     <string name="lista_aviao">Lista Avião</string>
     <string name="lista_tarefas">Lista Tarefas</string>
     <string name="adicionar_tarefa">Adicionar Tarefa</string>
-    <string name="designacao">Designação</string>
+    <string name="designacao">Designação:</string>
     <string name="hangar">Hangar:</string>
     <string name="recurso">Recurso:</string>
     <string name="estado">Estado:</string>
     <string name="detalhes_tarefa">Detalhes Tarefa</string>
+    <string name="data_inicio">Data Início:</string>
+    <string name="data_final">Data Final:</string>
+    <string name="data_registo">Data Registo:</string>
+    <string name="perfil">Detalhes Perfil</string>
+    <string name="email">Email:</string>
+    <string name="nib">NIB:</string>
+    <string name="telemovel">Telemovel:</string>
 
     <string-array name="estados">
         <item>concluido</item>

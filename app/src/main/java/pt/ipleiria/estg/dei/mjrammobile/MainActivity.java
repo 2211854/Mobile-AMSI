@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
 
             switch(item.getItemId()){
                 case R.id.perfil:
-                    replaceFragment(new DetalhesTarefaFragment());
+                    replaceFragment(new PerfilFragment());
                     break;
                 case R.id.FB_Add_tarefas:
                     replaceFragment(new AdicionarTarefaFragment());
@@ -51,15 +51,21 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
                 case R.id.avioes:
                     replaceFragment(new ListaAvioesFragment());
                     break;
-                /*case R.id.btnListaTarefas:
-                    replaceFragment(new DetalhesFragment());
-                    break;*/
                 case R.id.btnListaTarefas:
                     replaceFragment(new ListaTarefasFragment());
                     break;
                 case R.id.btnAdicionarTarefa:
                     replaceFragment(new ListaTarefasFragment());
                     break;
+                    /*
+                    case R.id.:
+                    replaceFragment(new DetalhesAviaoFragment());
+                    break;
+                    case R.id.:
+                    replaceFragment(new DetalhesTarefaFragment());
+                    break;
+
+                     */
             }
 
 

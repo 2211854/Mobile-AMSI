@@ -3,22 +3,15 @@ package pt.ipleiria.estg.dei.mjrammobile.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.R;
-import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DetalhesTarefaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetalhesTarefaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -34,15 +27,6 @@ public class DetalhesTarefaFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalhesTarefaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DetalhesTarefaFragment newInstance(String param1, String param2) {
         DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
         Bundle args = new Bundle();
@@ -51,9 +35,6 @@ public class DetalhesTarefaFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    ActivityMainBinding binding;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,19 +48,20 @@ public class DetalhesTarefaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalhes_tarefa, container, false);
+        View v = inflater.inflate(R.layout.fragment_detalhes_tarefa, container, false);
+
+        Button btnListaTarefa = (Button)v.findViewById(R.id.btnListaTarefas);
+
+        btnListaTarefa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.Fl_menu, new ListaTarefasFragment());
+                fr.commit();
+            }
+        });
+
+        return v;
     }
 
-
-    private void replaceFragment(Fragment fragment){
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.Fl_menu, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void onClickTarefa(View view) {
-        replaceFragment(new ListaTarefasFragment());
-    }
 }
