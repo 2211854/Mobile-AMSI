@@ -3,19 +3,23 @@ package pt.ipleiria.estg.dei.mjrammobile.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DetalhesFragment#newInstance} factory method to
+ * Use the {@link DetalhesTarefaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalhesFragment extends Fragment {
+public class DetalhesTarefaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +30,7 @@ public class DetalhesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DetalhesFragment() {
+    public DetalhesTarefaFragment() {
         // Required empty public constructor
     }
 
@@ -36,17 +40,19 @@ public class DetalhesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalhesFragment.
+     * @return A new instance of fragment DetalhesTarefaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DetalhesFragment newInstance(String param1, String param2) {
-        DetalhesFragment fragment = new DetalhesFragment();
+    public static DetalhesTarefaFragment newInstance(String param1, String param2) {
+        DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
+
+    ActivityMainBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,19 @@ public class DetalhesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalhes, container, false);
+        return inflater.inflate(R.layout.fragment_detalhes_tarefa, container, false);
+    }
+
+
+    private void replaceFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.Fl_menu, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void onClickTarefa(View view) {
+        replaceFragment(new ListaTarefasFragment());
     }
 }

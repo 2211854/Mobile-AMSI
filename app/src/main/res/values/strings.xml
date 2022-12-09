@@ -18,6 +18,7 @@
     <string name="hangar">Hangar:</string>
     <string name="recurso">Recurso:</string>
     <string name="estado">Estado:</string>
+    <string name="detalhes_tarefa">Detalhes Tarefa</string>
 
     <string-array name="estados">
         <item>concluido</item>
