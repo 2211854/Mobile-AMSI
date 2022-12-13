@@ -176,7 +176,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_button_detalhes"
-            android:onClick="onClickListaTarefas"
-            android:text="Login"
+            android:text="Lista Tarefas"
             android:textColor="@android:color/white" />
 </TableLayout>

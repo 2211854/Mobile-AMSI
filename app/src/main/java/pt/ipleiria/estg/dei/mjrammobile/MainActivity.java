@@ -82,14 +82,11 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
 
     }
 
-    /*SPINNER
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+    /*public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         String text = parent.getItemAtPosition(position).toString();
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }*/

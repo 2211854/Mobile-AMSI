@@ -3,12 +3,16 @@ package pt.ipleiria.estg.dei.mjrammobile.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,14 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
  * create an instance of this fragment.
  */
 public class ListaAvioesFragment extends Fragment {
+
+    String Empresas[] = {"TAP","TAP","TAP"};
+    String NomeAviaos[] = {"A380","A380","A380"};
+    String Estados[] = {"Aterrado","Em Curso","Em manutenção"};
+
+    private View v;
+    ListView listview;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,15 +42,6 @@ public class ListaAvioesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ListaAvioesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ListaAvioesFragment newInstance(String param1, String param2) {
         ListaAvioesFragment fragment = new ListaAvioesFragment();
         Bundle args = new Bundle();
@@ -60,7 +63,22 @@ public class ListaAvioesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_avioes, container, false);
+
+        v = inflater.inflate(R.layout.fragment_lista_avioes, container, false);
+
+        listview = v.findViewById(R.id.lvAviao);
+        ListaAviaoAdaptador listaAviaoAdaptador = new ListaAviaoAdaptador(getContext(), Empresas, Estados,  NomeAviaos);
+        listview.setAdapter(listaAviaoAdaptador);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.Fl_menu, new DetalhesAviaoFragment());
+                fr.commit();
+            }
+        });
+
+        return v;
+
     }
 }

@@ -24,6 +24,8 @@
     <ListView
         android:id="@+id/lvAviao"
         android:layout_width="0dp"
+        android:divider="@color/black"
+        android:dividerHeight="1px"
         android:background="@drawable/table_detalhes_meio"
         android:layout_height="wrap_content">
     </ListView>
