@@ -25,6 +25,14 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"></TextView>
         </TableRow>
+        <TableRow android:clickable="false"
+            android:background="@drawable/table_detalhes_meio">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/searchFilter"/>
+        </TableRow>
 
 
         <ListView
@@ -34,6 +42,15 @@
             android:background="@drawable/table_detalhes_meio">
 
         </ListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_empty"
+            android:text="Sem Resultados"
+            android:textSize="12dp"
+            android:visibility="gone"/>
+
     </TableLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
