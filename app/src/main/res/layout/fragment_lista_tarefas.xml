@@ -12,7 +12,9 @@
 
         <TableRow
             android:background="@drawable/table_detalhes_cima"
-            android:clickable="false">
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
 
@@ -23,10 +25,38 @@
                 android:padding="10sp"
                 android:text="@string/lista_tarefas"
                 android:textColor="@color/white"
-                android:textSize="20sp"></TextView>
+                android:textSize="20sp">
+
+            </TextView>
         </TableRow>
+        <TableRow android:background="@drawable/table_detalhes_meio"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
+            <RadioButton
+                android:id="@+id/rd_concluido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Concluido" />
 
+            <RadioButton
+                android:id="@+id/rd_Planeada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Planeada" />
+
+            <RadioButton
+                android:id="@+id/rd_cancelado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Cancelado" />
+
+        </TableRow>
         <ListView
             android:id="@+id/lvTarefas"
             android:layout_width="match_parent"
@@ -35,6 +65,7 @@
 
         </ListView>
     </TableLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FB_Add_tarefas"
@@ -50,5 +81,6 @@
         android:clickable="true"
         android:src="@drawable/ic_adicionar_tarefas"
         tools:ignore="SpeakableTextPresentCheck" />
+
 
 </RelativeLayout>

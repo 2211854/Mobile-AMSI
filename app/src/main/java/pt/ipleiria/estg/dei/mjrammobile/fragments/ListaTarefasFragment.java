@@ -8,53 +8,49 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
 
 public class ListaTarefasFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    String Designacoes[] = {"Tarefa 1","Tarefa 2","Tarefa 3"};
+    String Estados[] = {"Concluido","Concluido","Concluido"};
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ListaTarefasFragment() {
-        // Required empty public constructor
-    }
-    public static ListaTarefasFragment newInstance(String param1, String param2) {
-        ListaTarefasFragment fragment = new ListaTarefasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private View v;
+    ListView listview;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_lista_tarefas, container, false);
+        v = inflater.inflate(R.layout.fragment_lista_tarefas, container, false);
 
+        //Envia para a listview tudo
+        listview = v.findViewById(R.id.lvTarefas);
+        ListaTarefasAdaptador listaTarefasAdaptador = new ListaTarefasAdaptador(getContext(), Designacoes, Estados);
+        listview.setAdapter(listaTarefasAdaptador);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.Fl_menu, new DetalhesTarefaFragment());
+                fr.commit();
+            }});
+
+        //Listener para o enviar para outro fragment
         FloatingActionButton FB_Add_tarefa = (FloatingActionButton) v.findViewById(R.id.FB_Add_tarefas);
-
         FB_Add_tarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
