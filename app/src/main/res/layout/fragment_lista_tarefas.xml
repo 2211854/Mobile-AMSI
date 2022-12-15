@@ -29,11 +29,6 @@
 
             </TextView>
         </TableRow>
-        <TableRow android:background="@drawable/table_detalhes_meio"
-            android:clickable="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
 
             <RadioButton
                 android:id="@+id/rd_concluido"
@@ -64,6 +59,15 @@
             android:background="@drawable/table_detalhes_meio">
 
         </ListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_empty"
+            android:text="Sem Resultados"
+            android:textSize="12dp"
+            android:visibility="gone"/>
+
     </TableLayout>
 
 

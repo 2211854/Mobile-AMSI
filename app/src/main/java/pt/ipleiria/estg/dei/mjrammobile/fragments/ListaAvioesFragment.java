@@ -5,20 +5,21 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListaAvioesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ListaAvioesFragment extends Fragment {
 
     String Empresas[] = {"TAP","TAP","TAP"};
@@ -27,10 +28,6 @@ public class ListaAvioesFragment extends Fragment {
 
     private View v;
     ListView listview;
-
-    public ListaAvioesFragment() {
-        // Required empty public constructor
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +39,10 @@ public class ListaAvioesFragment extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_lista_avioes, container, false);
 
+        textFilter = v.findViewById(R.id.searchFilter);
+
         listview = v.findViewById(R.id.lvAviao);
-        ListaAviaoAdaptador listaAviaoAdaptador = new ListaAviaoAdaptador(getContext(), Empresas, Estados,  NomeAviaos);
+        listaAviaoAdaptador = new ListaAviaoAdaptador(getContext(), Empresas, Estados,  NomeAviaos);
         listview.setAdapter(listaAviaoAdaptador);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,6 +50,24 @@ public class ListaAvioesFragment extends Fragment {
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
                 fr.replace(R.id.Fl_menu, new DetalhesAviaoFragment());
                 fr.commit();
+            }
+        });
+
+        adapter = new ArrayAdapter(getContext(), R.layout.fragment_lista_avioes);
+
+        textFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                (ListaAvioesFragment.this).adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
