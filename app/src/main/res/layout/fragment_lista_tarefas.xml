@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-
+                android:id="@+id/tv_titulo_tarefas"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -25,27 +25,53 @@
                 android:padding="10sp"
                 android:text="@string/lista_tarefas"
                 android:textColor="@color/white"
-                android:textSize="20sp">
+                android:textSize="25sp"
+                android:visibility="visible"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:visibility="gone"
+                android:id="@+id/searchFilter">
 
-            </TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pesquise o nome"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <ImageButton
+                android:id="@+id/ib_search_tarefas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:backgroundTint="@color/dourado_icon"
+                android:src="@drawable/ic_search"
+                android:layout_marginRight="1dp"/>
+
         </TableRow>
+        <TableRow android:background="@drawable/table_detalhes_meio"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <RadioButton
-                android:id="@+id/rd_concluido"
+            <CheckBox
+                android:id="@+id/cb_concluido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="Concluido" />
 
-            <RadioButton
-                android:id="@+id/rd_Planeada"
+            <CheckBox
+                android:id="@+id/cb_Planeada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
                 android:text="Planeada" />
 
-            <RadioButton
-                android:id="@+id/rd_cancelado"
+            <CheckBox
+                android:id="@+id/cb_cancelado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"

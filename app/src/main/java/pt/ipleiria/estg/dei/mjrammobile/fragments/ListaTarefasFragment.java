@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,15 +15,30 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.w3c.dom.Text;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
 
 public class ListaTarefasFragment extends Fragment {
+
+    private View v;
+    private ListView listview;
+    String Designacoes [] = {"Não sei"};
+    String Estados[] = {"Concluido"};
+    private TextView tv_titulo;
+    private TextInputLayout til_searchFilter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +75,23 @@ public class ListaTarefasFragment extends Fragment {
             }
         });
 
-
+        ImageButton ib_search_tarefa = (ImageButton) v.findViewById(R.id.ib_search_tarefas);
+        ib_search_tarefa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                til_searchFilter = (TextInputLayout) v.findViewById(R.id.searchFilter);
+                tv_titulo = (TextView) v.findViewById(R.id.tv_titulo_tarefas);
+                if(tv_titulo.getVisibility() == v.VISIBLE){
+                    tv_titulo.setVisibility(tv_titulo.GONE);
+                    til_searchFilter.setVisibility(til_searchFilter.VISIBLE);
+                    til_searchFilter.setEnabled(true);
+                }else{
+                    tv_titulo.setVisibility(tv_titulo.VISIBLE);
+                    til_searchFilter.setVisibility(til_searchFilter.GONE);
+                    til_searchFilter.setEnabled(false);
+                }
+            }
+        });
 
         return v;
     }

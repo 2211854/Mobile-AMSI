@@ -10,7 +10,7 @@
         android:background="@drawable/table_detalhes_cima"
         >
         <TextView
-
+            android:id="@+id/tv_titulo_lista_aviao"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -20,26 +20,28 @@
             android:textColor="@color/white"
             android:textSize="20sp">
         </TextView>
-    </TableRow>
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:visibility="gone"
+            android:id="@+id/searchFilter_aviao">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pesquise o nome"
-                android:id="@+id/searchFilter"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- <EditText
-             android:layout_width="0dp"
-             android:layout_height="match_parent"/>
-             android:id="@+id/searchFilter"-->
-
+        <ImageButton
+            android:id="@+id/ib_search_aviao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:backgroundTint="@color/dourado_icon"
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="1dp"/>
+    </TableRow>
     <ListView
         android:id="@+id/lvAviao"
         android:layout_width="0dp"
