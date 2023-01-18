@@ -3,20 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.ListaAvioesFragment">
+    tools:context=".fragments.ListaVoosFragment">
 
     <TableRow
         android:clickable="false"
         android:background="@drawable/table_detalhes_cima"
         >
         <TextView
-            android:id="@+id/tv_titulo_lista_aviao"
+            android:id="@+id/tv_titulo_lista_voos"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center"
             android:padding="10sp"
-            android:text="@string/lista_aviao"
+            android:text="@string/lista_voos"
             android:textColor="@color/white"
             android:textSize="20sp">
         </TextView>

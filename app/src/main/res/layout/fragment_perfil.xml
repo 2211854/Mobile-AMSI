@@ -38,8 +38,8 @@
             android:textColor="@color/black"
             android:textSize="20sp">
         </TextView>
-        <EditText
-            android:id="@+id/Et_email"
+        <TextView
+            android:id="@+id/tv_email"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -48,7 +48,7 @@
             android:textColor="@color/black"
             android:text="gay@email.com"
             android:textSize="15sp">
-        </EditText>
+        </TextView>
     </TableRow>
     <TableRow android:layout_height="match_parent"
         android:layout_width="0dp">
@@ -69,15 +69,15 @@
             android:textSize="20sp">
         </TextView>
 
-        <EditText
-            android:id="@+id/Et_Nib"
+        <TextView
+            android:id="@+id/tv_Nib"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
             android:text="PT50 1300 1023 1234567890123"
             android:textColor="@color/black"
-            android:textSize="15sp"></EditText>
+            android:textSize="15sp"></TextView>
     </TableRow>
     <TableRow android:background="@drawable/table_detalhes_meio">
         <ImageView
@@ -96,8 +96,8 @@
             android:textColor="@color/black"
             android:textSize="20sp">
         </TextView>
-        <EditText
-            android:id="@+id/Et_telemovel"
+        <TextView
+            android:id="@+id/tv_telemovel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -106,7 +106,7 @@
             android:textColor="@color/black"
             android:text="913523072"
             android:textSize="15sp">
-        </EditText>
+        </TextView>
     </TableRow>
 
     <Space

@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 
-public class CustomListaAviaoActivity extends AppCompatActivity {
+public class CustomListaVooActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_lista_aviao);
+        setContentView(R.layout.activity_custom_lista_voo);
     }
 }

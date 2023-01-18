@@ -6,16 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.AdicionarTarefaFragment;
-import pt.ipleiria.estg.dei.mjrammobile.fragments.DetalhesTarefaFragment;
-import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaAvioesFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaTarefasFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.PerfilFragment;
 

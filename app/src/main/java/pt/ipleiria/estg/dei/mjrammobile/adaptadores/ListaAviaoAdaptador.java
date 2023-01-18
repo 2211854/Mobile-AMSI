@@ -1,7 +1,6 @@
 package pt.ipleiria.estg.dei.mjrammobile.adaptadores;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,7 @@ public class ListaAviaoAdaptador extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         //view infalter
-        view = inflater.inflate(R.layout.activity_custom_lista_aviao, null);
+        view = inflater.inflate(R.layout.activity_custom_lista_voo, null);
 
         //define as textviews
         TextView tv_nome_aviao = (TextView) view.findViewById(R.id.tv_Titulo_aviao);

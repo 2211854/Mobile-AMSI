@@ -5,25 +5,22 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
 
-public class ListaAvioesFragment extends Fragment {
+
+public class ListaVoosFragment extends Fragment {
 
     String Empresas[] = {"TAP","TAP","TAP"};
     String NomeAviaos[] = {"A380","A380","A380"};
@@ -45,7 +42,7 @@ public class ListaAvioesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_lista_avioes, container, false);
+        v = inflater.inflate(R.layout.fragment_lista_voos, container, false);
 
         listview = v.findViewById(R.id.lvAviao);
         listaAviaoAdaptador = new ListaAviaoAdaptador(getContext(), Empresas, Estados,  NomeAviaos);
@@ -64,7 +61,7 @@ public class ListaAvioesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 til_searchFilter = (TextInputLayout) v.findViewById(R.id.searchFilter_aviao);
-                tv_titulo = (TextView) v.findViewById(R.id.tv_titulo_lista_aviao);
+                tv_titulo = (TextView) v.findViewById(R.id.tv_titulo_lista_voos);
                 if(tv_titulo.getVisibility() == v.VISIBLE){
                     tv_titulo.setVisibility(tv_titulo.GONE);
                     til_searchFilter.setVisibility(til_searchFilter.VISIBLE);
