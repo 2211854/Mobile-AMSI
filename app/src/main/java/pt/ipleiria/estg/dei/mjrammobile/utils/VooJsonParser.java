@@ -17,15 +17,15 @@ public class VooJsonParser {
 
     public static String parserJsonLogin(String response) { // static para nao ter de fazer new
         String token = null;
+        System.out.println(response);
         try {
             JSONObject login = new JSONObject(response);
-            if (login.getBoolean("success")){
-                token = login.getString("token");
-            }
+            token = login.getString("auth_key");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        System.out.println(token);
         return token;
     }
 

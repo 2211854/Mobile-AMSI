@@ -15,9 +15,9 @@ import pt.ipleiria.estg.dei.mjrammobile.fragments.PerfilFragment;
 
 public class MainActivity extends AppCompatActivity //implements AdapterView.OnItemSelectedListener
 {
-    private String email;
+    private String username;
     private String token;
-    public static final String EMAIL="EMAIL"; // NOME
+    public static final String USERNAME="USERNAME"; // NOME
     public static final String TOKEN="TOKEN";
 
     ActivityMainBinding binding;

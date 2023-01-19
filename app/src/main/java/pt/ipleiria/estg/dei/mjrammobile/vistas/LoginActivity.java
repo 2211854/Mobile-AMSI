@@ -32,14 +32,14 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     public void onClickLogin(View view) {
 
-        String email = etEmail.getText().toString();
+        String username = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        if(!isEmailValid(email))
+        /*if(!isEmailValid(username))
         {
             etEmail.setText(R.string.txt_Email_invalido);
             return;
-        }
+        }*/
         /*if (!isPasswordValid(password))
         {
             etPassword.setError(getString(R.string.txt_pass_invalida));
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         intent.putExtra("EMAIL", email);
         startActivity(intent);
         finish();*/
-        Singleton.getInstance(getApplicationContext()).loginAPI(email,password,getApplicationContext());
+        Singleton.getInstance(getApplicationContext()).loginAPI(username,password,getApplicationContext());
 
 
     }
@@ -69,11 +69,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onValidateLogin(String token, String email, Context context) {
+    public void onValidateLogin(String token, String username, Context context) {
         if (token!=null)
         {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra(MainActivity.EMAIL, email);
+            intent.putExtra(MainActivity.USERNAME, username);
             intent.putExtra(MainActivity.TOKEN, token);
             startActivity(intent);
             finish();

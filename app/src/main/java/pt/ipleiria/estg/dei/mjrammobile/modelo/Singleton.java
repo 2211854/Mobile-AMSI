@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 import android.content.Context;
+import android.util.Base64;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,8 +26,8 @@ public class Singleton {
 
     private static  Singleton instance = null;
     private static RequestQueue volleyQueue = null;
-    //private static final String mUrlAPILogin = "http://10.0.2.2:80/WEB-PSI-SIS/mjram/backend/web/api/auth/login";
-    private static final String mUrlAPILogin = "http://amsi.dei.estg.ipleiria.pt/api/auth/login";
+    private static final String mUrlAPILogin = "http://10.0.2.2:80/WEB-PSI-SIS/mjram/backend/web/api/auth/login";
+    //private static final String mUrlAPILogin = "http://amsi.dei.estg.ipleiria.pt/api/auth/login";
     private LoginListener loginListener;
 
     public static synchronized Singleton getInstance(Context context){
@@ -46,17 +47,18 @@ public class Singleton {
 
     }
 
-    public void loginAPI(final String email, final String password, final Context context){
+    public void loginAPI(final String username, final String password, final Context context){
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
             StringRequest req = new StringRequest(Request.Method.POST, mUrlAPILogin, new Response.Listener<String>() {
+
                 @Override
                 public void onResponse(String response) {
                     String token = VooJsonParser.parserJsonLogin(response);
                     if (loginListener != null)
-                        loginListener.onValidateLogin(token, email, context);
+                        loginListener.onValidateLogin(token, username, context);
                 }
 
             }, new Response.ErrorListener() {
@@ -66,10 +68,14 @@ public class Singleton {
                 }
             }){
                 @Override
-                public Map<String, String> getParams() {
+                public Map<String, String> getHeaders() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("email", email);
-                    params.put("password", password);
+                    //params.put("username", username);
+                    //params.put("password", password);
+                    String creds = String.format("%s:%s",username,password);
+                    String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                    params.put("Authorization", auth);
+
                     return params;
                 }
             };
