@@ -67,6 +67,7 @@ public class ListaVooAdaptador extends BaseAdapter {
         tv_pistas.setText(Pista[i]);
         tv_designacoes.setText(Designacao[i]);
 
+
         return view;
     }
 }

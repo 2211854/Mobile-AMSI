@@ -2,16 +2,20 @@ package pt.ipleiria.estg.dei.mjrammobile.vistas;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText etEmail, etPassword;
     private final int MIN_PASS = 4;
 
@@ -19,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Singleton.getInstance(getApplicationContext()).setLoginListener(this);
+
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
     }
@@ -33,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             etEmail.setText(R.string.txt_Email_invalido);
             return;
         }
-        if (!isPasswordValid(password))
+        /*if (!isPasswordValid(password))
         {
             etPassword.setError(getString(R.string.txt_pass_invalida));
             return;
@@ -41,7 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("EMAIL", email);
         startActivity(intent);
-        finish();
+        finish();*/
+        Singleton.getInstance(getApplicationContext()).loginAPI(email,password,getApplicationContext());
+
+
     }
 
     private boolean isEmailValid(String email)
@@ -58,4 +68,18 @@ public class LoginActivity extends AppCompatActivity {
         return pass.length()>=MIN_PASS;
     }
 
+    @Override
+    public void onValidateLogin(String token, String email, Context context) {
+        if (token!=null)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(MainActivity.EMAIL, email);
+            intent.putExtra(MainActivity.TOKEN, token);
+            startActivity(intent);
+            finish();
+        }else
+        {
+            Toast.makeText(getApplicationContext(),"Erro login",Toast.LENGTH_LONG).show();
+        }
+    }
 }
