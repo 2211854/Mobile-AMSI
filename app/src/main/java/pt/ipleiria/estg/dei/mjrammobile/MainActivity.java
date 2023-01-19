@@ -10,6 +10,7 @@ import android.os.Bundle;
 import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.AdicionarTarefaFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaTarefasFragment;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaVoosFragment;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.PerfilFragment;
 
 public class MainActivity extends AppCompatActivity //implements AdapterView.OnItemSelectedListener
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new ListaAvioesFragment());
+        replaceFragment(new ListaVoosFragment());
 
         /*Spinner spinner = findViewById(R.id.sp_add_tarefas);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
                     replaceFragment(new AdicionarTarefaFragment());
                     break;
                 case R.id.avioes:
-                    replaceFragment(new ListaAvioesFragment());
+                    replaceFragment(new ListaVoosFragment());
                     break;
                 case R.id.btnListaTarefas:
                     replaceFragment(new ListaTarefasFragment());

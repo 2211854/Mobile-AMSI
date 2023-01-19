@@ -17,18 +17,20 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
-import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
 
 
 public class ListaVoosFragment extends Fragment {
 
-    String Empresas[] = {"TAP","TAP","TAP"};
-    String NomeAviaos[] = {"A380","A380","A380"};
+    String Companhias[] = {"TAP","TAP","TAP"};
+    String Avioes[] = {"A380","A380","A380"};
     String Estados[] = {"Aterrado","Em Curso","Em manutenção"};
+    String Pistas[] = {"Norte 1","Note 2","Sul Encarpado"};
+    String Designacoes[] = {"Voo1","voo2","voo4"};
 
     private View v;
     ListView listview;
-    ListaAviaoAdaptador listaAviaoAdaptador;
+    ListaVooAdaptador ListaVooAdaptador;
     TextView textFilter, tv_titulo;
     ArrayAdapter adapter;
     TextInputLayout til_searchFilter;
@@ -45,8 +47,8 @@ public class ListaVoosFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_lista_voos, container, false);
 
         listview = v.findViewById(R.id.lvAviao);
-        listaAviaoAdaptador = new ListaAviaoAdaptador(getContext(), Empresas, Estados,  NomeAviaos);
-        listview.setAdapter(listaAviaoAdaptador);
+        ListaVooAdaptador = new ListaVooAdaptador(getContext(), Companhias, Estados,  Avioes, Pistas, Designacoes);
+        listview.setAdapter(ListaVooAdaptador);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

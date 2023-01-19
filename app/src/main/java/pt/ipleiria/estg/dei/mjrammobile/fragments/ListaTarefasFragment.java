@@ -1,34 +1,23 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.w3c.dom.Text;
-
 import pt.ipleiria.estg.dei.mjrammobile.R;
-import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaAviaoAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
 
 public class ListaTarefasFragment extends Fragment {
