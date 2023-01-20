@@ -40,7 +40,7 @@ public class TarefaDBHelper extends SQLiteOpenHelper{
 
     public Tarefa adicionarTarefaBD(Tarefa tarefa)
     {
-        //adicionar um voo a bd
+        //adicionar um tarefa a bd
         ContentValues values = new ContentValues();
         values.put(ID, tarefa.getId());
         values.put(DESIGNACAO, tarefa.getDesignacao());;

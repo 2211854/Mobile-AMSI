@@ -54,7 +54,7 @@ public class AviaoDBHelper extends SQLiteOpenHelper {
 
     public void removerAllAviao()
     {
-        //remover todos os voos da bd
+        //remover todos os aviao da bd
         db.delete(TABLE_AVIAO, null, null);
     }
 
