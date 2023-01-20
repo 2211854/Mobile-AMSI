@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -17,6 +18,7 @@ import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText etEmail, etPassword;
+    private String username;
     private final int MIN_PASS = 4;
 
     @Override
@@ -28,6 +30,13 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+
+        SharedPreferences sharedPreferences =getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        username = sharedPreferences.getString(MainActivity.USERNAME, null);
+        if (username!=null){
+            etEmail.setText(username);
+        }
+
     }
 
     public void onClickLogin(View view) {

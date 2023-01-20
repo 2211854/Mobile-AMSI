@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import pt.ipleiria.estg.dei.mjrammobile.databinding.ActivityMainBinding;
 import pt.ipleiria.estg.dei.mjrammobile.fragments.AdicionarTarefaFragment;
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
 {
     private String username;
     private String token;
+    public static final String SHARED_USER="DADOS_USER";
     public static final String USERNAME="USERNAME"; // NOME
     public static final String TOKEN="TOKEN";
 
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        carregarToken();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new ListaVoosFragment());
@@ -79,6 +85,21 @@ public class MainActivity extends AppCompatActivity //implements AdapterView.OnI
         fragmentTransaction.commit();
 
     }
+
+    private void carregarToken() {
+        username=getIntent().getStringExtra(USERNAME);
+        token= getIntent().getStringExtra(TOKEN);
+        SharedPreferences infoUser=getSharedPreferences(SHARED_USER, Context.MODE_PRIVATE);
+
+        if(username!=null && token!=null)  {
+            SharedPreferences.Editor editor =infoUser.edit();
+            editor.putString(USERNAME, username);
+            editor.putString(TOKEN, token);
+            editor.apply();
+        }
+
+    }
+
 
     /*public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         String text = parent.getItemAtPosition(position).toString();
