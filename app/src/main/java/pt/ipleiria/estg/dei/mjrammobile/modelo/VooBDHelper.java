@@ -96,7 +96,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_VOO, new String[]{ID,DESIGNACAO, ESTADO, ID_AVIAO, AVIAO, PISTA, TOTALBILHETES}, null, null, null, null, null);
         if(cursor.moveToFirst()){
             do {
-                Voo auxVoo = new Voo(cursor.getInt(5), cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4),cursor.getString(4));
+                Voo auxVoo = new Voo(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(6), cursor.getString(5),cursor.getString(4));
 
                 voos.add(auxVoo);
             }while (cursor.moveToNext());

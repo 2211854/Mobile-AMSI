@@ -1,14 +1,12 @@
 package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 public class Aviao {
-    private int id, ocupacao,combustivelatual;
-    private String classe;
-
-    public Aviao(int id, int combustivelatual, String classe, int ocupacao){
+    private int id,combustivelatual;
+    private Ocupacao[] ocupacoes;
+    public Aviao(int id, int combustivelatual, Ocupacao[] ocupacoes){
         this.id = id;
         this.combustivelatual  = combustivelatual;
-        this.classe = classe;
-        this.ocupacao = ocupacao;
+        this.ocupacoes = ocupacoes;
     }
 
     public int getId() {
@@ -19,12 +17,12 @@ public class Aviao {
         this.id = id;
     }
 
-    public int getOcupacao() {
-        return ocupacao;
+    public Ocupacao[] getOcupacoes() {
+        return ocupacoes;
     }
 
-    public void setOcupacao(int ocupacao) {
-        this.ocupacao = ocupacao;
+    public void setOcupacoes(Ocupacao[] ocupacoes) {
+        this.ocupacoes = ocupacoes;
     }
 
     public int getCombustivelatual() {
@@ -33,13 +31,5 @@ public class Aviao {
 
     public void setCombustivelatual(int combustivelatual) {
         this.combustivelatual = combustivelatual;
-    }
-
-    public String getClasse() {
-        return classe;
-    }
-
-    public void setClasse(String classe) {
-        this.classe = classe;
     }
 }
