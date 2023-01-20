@@ -17,15 +17,16 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
-
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
 public class ListaTarefasFragment extends Fragment {
 
     private View v;
     private ListView listview;
-    String Designacoes [] = {"Não sei"};
-    String Estados[] = {"Concluido"};
+    ArrayList<Tarefa> tarefas;
     private TextView tv_titulo;
     private TextInputLayout til_searchFilter;
 
@@ -43,7 +44,7 @@ public class ListaTarefasFragment extends Fragment {
 
         //Envia para a listview tudo
         listview = v.findViewById(R.id.lvTarefas);
-        ListaTarefasAdaptador listaTarefasAdaptador = new ListaTarefasAdaptador(getContext(), Designacoes, Estados);
+        ListaTarefasAdaptador listaTarefasAdaptador = new ListaTarefasAdaptador(getContext(), tarefas);
         listview.setAdapter(listaTarefasAdaptador);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,6 +65,7 @@ public class ListaTarefasFragment extends Fragment {
             }
         });
 
+        //Verifica se esta o search ou não
         ImageButton ib_search_tarefa = (ImageButton) v.findViewById(R.id.ib_search_tarefas);
         ib_search_tarefa.setOnClickListener(new View.OnClickListener() {
             @Override

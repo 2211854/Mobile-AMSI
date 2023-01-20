@@ -30,6 +30,13 @@ public class Singleton {
     //private static final String mUrlAPILogin = "http://amsi.dei.estg.ipleiria.pt/api/auth/login";
     private LoginListener loginListener;
 
+    private ArrayList<Voo> voos;
+    private VooBDHelper vooDb;
+    private ArrayList<Aviao> aviaos;
+    private AviaoDBHelper aviaoDb;
+    private ArrayList<Tarefa> tarefas;
+    private TarefaDBHelper tarefaDb;
+
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
         {
@@ -82,6 +89,99 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
+    //buscar tudo a base dados voo
+    public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
+        voos=vooDb.getAllVooBD();
+        return new ArrayList(voos);
+    }
 
+    public Voo getVoo(int idVoo){
+        for (Voo V : voos){
+            if(V.getId() == idVoo)
+                return V;
+        }
+        return null;
+    }
+    //buscar tudo a base dados Tarefa
+    public ArrayList<Tarefa> getTarefasBD() { // return da copia dos Tarefas
+        tarefas=tarefaDb.getAllTarefaBD();
+        return new ArrayList(tarefas);
+    }
 
+    public Tarefa getTarefa(int idTarefa){
+        for (Tarefa T : tarefas){
+            if(T.getId() == idTarefa)
+                return T;
+        }
+        return null;
+    }
+
+    //buscar tudo a base dados Aviao
+    public ArrayList<Aviao> getAviaosBD() { // return da copia dos Aviao
+        aviaos=aviaoDb.getAllAviaoBD();
+        return new ArrayList(aviaos);
+    }
+
+    public Aviao getAviao(int idAviao){
+        for (Aviao A : aviaos){
+            if(A.getId() == idAviao)
+                return A;
+        }
+        return null;
+    }
+
+    //Adicionar base dados voo
+    public void adicionarVoosBD(ArrayList<Voo> voos)
+    {
+        vooDb.removerAllVoo();
+        for(Voo V:voos)
+        {
+            adicionarVooBD(V);
+        }
+    }
+    public void adicionarVooBD(Voo v) {vooDb.adicionarVooBD(v);}
+
+    //Adicionar base dados Tarefa
+    public void adicionarTarefasBD(ArrayList<Tarefa> tarefas)
+    {
+        tarefaDb.removerAllTarefa();
+        for(Tarefa T:tarefas)
+        {
+            adicionarTarefaBD(T);
+        }
+    }
+    public void adicionarTarefaBD(Tarefa T) {tarefaDb.adicionarTarefaBD(T);}
+
+    //Adicionar base dados Aviao
+    public void adicionarAviaosBD(ArrayList<Aviao> aviaos)
+    {
+        aviaoDb.removerAllAviao();
+        for(Aviao A:aviaos)
+        {
+            adicionarAviaoBD(A);
+        }
+    }
+    public void adicionarAviaoBD(Aviao A) {aviaoDb.adicionarAviaoBD(A);}
+
+    //remover voo
+    public void removerVooBD(int id)
+    {
+        Voo auxVoo = getVoo(id);
+        if (auxVoo!=null)
+            vooDb.removerVooBD(id);
+    }
+    //remover Tarefa
+    public void removerTarefaBD(int id)
+    {
+        Tarefa auxTarefa = getTarefa(id);
+        if (auxTarefa!=null)
+            tarefaDb.removerTarefaBD(id);
+    }
+    //remover Aviao
+    public void removerAviaoBD(int id)
+    {
+        Aviao auxAviao = getAviao(id);
+        if (auxAviao!=null)
+            aviaoDb.removerAviaoBD(id);
+    }
 }
