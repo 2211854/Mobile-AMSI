@@ -8,7 +8,6 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
 
 public class CustomListaVooActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

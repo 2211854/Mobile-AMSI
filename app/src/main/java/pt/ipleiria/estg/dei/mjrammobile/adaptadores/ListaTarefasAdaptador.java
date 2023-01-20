@@ -5,30 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
 
 public class ListaTarefasAdaptador extends BaseAdapter {
 
     Context ctx;
-    String Designacao[];
-    String Estado[];
     LayoutInflater inflater;
+    private ArrayList<Tarefa> tarefas;
 
-    public ListaTarefasAdaptador (Context context, String [] Designacoes, String [] Estados ){
+    public ListaTarefasAdaptador (Context context, ArrayList<Tarefa> tarefas ){
         this.ctx = context;
-        this.Designacao = Designacoes;
-        this.Estado = Estados;
+        this.tarefas = tarefas;
         inflater = LayoutInflater.from(ctx);
 
     }
 
     @Override
     public int getCount() {
-        return Designacao.length;
+        return tarefas.size();
     }
-
     @Override
     public Object getItem(int i) {
         return null;
@@ -42,16 +43,36 @@ public class ListaTarefasAdaptador extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         //view infalter
-        view = inflater.inflate(R.layout.activity_custom_lista_tarefas, null);
-
-        //define as textviews
-        TextView tv_designacao = (TextView) view.findViewById(R.id.tv_Lista_Tarefas_Designacao);
-        TextView tv_estados= (TextView) view.findViewById(R.id.tv_Lista_Tarefas_estado);
+        if(inflater == null)
+            inflater = (LayoutInflater) ctx.getSystemService(ctx.LAYOUT_INFLATER_SERVICE);
+        if(view == null)
+            view = inflater.inflate(R.layout.activity_custom_lista_tarefas, null);
 
         //envia para as textview as variaveis
-        tv_designacao.setText(Designacao[i]);
-        tv_estados.setText(Estado[i]);
+        ViewHolderListaTarefas viewHolder = (ViewHolderListaTarefas) view.getTag();
+        if(viewHolder == null)
+        {
+            viewHolder = new ViewHolderListaTarefas(view);
+            view.setTag(viewHolder);
+        }
+
+        viewHolder.update(tarefas.get(i));
 
         return view;
+    }
+
+    private class ViewHolderListaTarefas{
+        private TextView tv_designacao, tv_estados;
+
+        public ViewHolderListaTarefas(View view){
+            tv_designacao = view.findViewById(R.id.tv_Lista_Tarefas_Designacao);
+            tv_estados = view.findViewById(R.id.tv_Lista_Tarefas_estado);
+        }
+
+        public void update(Tarefa tarefas){
+            tv_designacao.setText(tarefas.getDesignacao());
+            tv_estados.setText(tarefas.getEstado());
+
+        }
     }
 }
