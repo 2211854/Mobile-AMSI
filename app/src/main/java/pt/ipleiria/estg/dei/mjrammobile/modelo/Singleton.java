@@ -36,6 +36,8 @@ public class Singleton {
     private AviaoDBHelper aviaoDb;
     private ArrayList<Tarefa> tarefas;
     private TarefaDBHelper tarefaDb;
+    private ArrayList<Ocupacao> ocupacoes;
+    private OcupacaoDBHelper ocupacaoDB;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -118,7 +120,11 @@ public class Singleton {
 
     //buscar tudo a base dados Aviao
     public ArrayList<Aviao> getAviaosBD() { // return da copia dos Aviao
-        aviaos=aviaoDb.getAllAviaoBD();
+        for (Aviao aviao: aviaoDb.getAllAviaoBD()){
+            aviao.setOcupacoes(ocupacaoDB.getOcupacaoDB(aviao.getId()));
+            aviaos.add(aviao);
+
+        }
         return new ArrayList(aviaos);
     }
 
@@ -163,25 +169,11 @@ public class Singleton {
     }
     public void adicionarAviaoBD(Aviao A) {aviaoDb.adicionarAviaoBD(A);}
 
-    //remover voo
-    public void removerVooBD(int id)
-    {
-        Voo auxVoo = getVoo(id);
-        if (auxVoo!=null)
-            vooDb.removerVooBD(id);
-    }
     //remover Tarefa
     public void removerTarefaBD(int id)
     {
         Tarefa auxTarefa = getTarefa(id);
         if (auxTarefa!=null)
             tarefaDb.removerTarefaBD(id);
-    }
-    //remover Aviao
-    public void removerAviaoBD(int id)
-    {
-        Aviao auxAviao = getAviao(id);
-        if (auxAviao!=null)
-            aviaoDb.removerAviaoBD(id);
     }
 }

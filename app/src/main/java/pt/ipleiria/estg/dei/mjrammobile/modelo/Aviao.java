@@ -1,9 +1,11 @@
 package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
+import java.util.ArrayList;
+
 public class Aviao {
     private int id,combustivelatual;
-    private Ocupacao[] ocupacoes;
-    public Aviao(int id, int combustivelatual, Ocupacao[] ocupacoes){
+    private ArrayList<Ocupacao> ocupacoes;
+    public Aviao(int id, int combustivelatual, ArrayList<Ocupacao> ocupacoes){
         this.id = id;
         this.combustivelatual  = combustivelatual;
         this.ocupacoes = ocupacoes;
@@ -17,11 +19,11 @@ public class Aviao {
         this.id = id;
     }
 
-    public Ocupacao[] getOcupacoes() {
+    public ArrayList<Ocupacao> getOcupacoes() {
         return ocupacoes;
     }
 
-    public void setOcupacoes(Ocupacao[] ocupacoes) {
+    public void setOcupacoes(ArrayList<Ocupacao> ocupacoes) {
         this.ocupacoes = ocupacoes;
     }
 

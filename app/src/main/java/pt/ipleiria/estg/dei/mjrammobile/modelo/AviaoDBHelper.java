@@ -64,7 +64,7 @@ public class AviaoDBHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do {
 
-                Aviao auxAviao = new Aviao(cursor.getInt(0), cursor.getInt(1), new Ocupacao[0]) ;
+                Aviao auxAviao = new Aviao(cursor.getInt(0), cursor.getInt(1), new ArrayList<>()) ;
 
                 aviaos.add(auxAviao);
             }while (cursor.moveToNext());

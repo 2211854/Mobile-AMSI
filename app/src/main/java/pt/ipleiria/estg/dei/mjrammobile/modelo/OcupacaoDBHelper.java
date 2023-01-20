@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.HardwareRenderer;
+
+import java.util.ArrayList;
 
 public class OcupacaoDBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="mjram";
@@ -71,13 +74,20 @@ public class OcupacaoDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Ocupacao getOcupacaoDB(int id_aviao){
+    public  ArrayList<Ocupacao> getOcupacaoDB(int id_aviao){
+        ArrayList<Ocupacao> ocupacoes = new ArrayList<>();
         Cursor cursor = db.query(TABLE_OCUPACAO, new String[]{ OCUPACAO, CLASSE, ID_AVIAO}, null, null, null, ID_AVIAO+"="+ id_aviao, CLASSE);
         if(cursor.moveToFirst()){
-            Ocupacao ocupacao = new Ocupacao(cursor.getInt(2), cursor.getInt(0), cursor.getString(1));
+            do {
+
+                Ocupacao auxOcupacao = new Ocupacao(cursor.getInt(2), cursor.getInt(0), cursor.getString(1));
+
+
+                ocupacoes.add(auxOcupacao);
+            }while (cursor.moveToNext());
 
             cursor.close();
-            return ocupacao;
+            return ocupacoes;
         }
         else{
             return null;
