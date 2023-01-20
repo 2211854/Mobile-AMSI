@@ -3,19 +3,23 @@ package pt.ipleiria.estg.dei.mjrammobile.modelo;
 public class Voo {
 
     private int id, id_aviao, totalbilhetes;
-    private String estado, designacao, aviao, pista;
+    private String estado, designacao, aviao, pista, companhia;
 
-    public Voo(int id, String designacao, String estado, int id_aviao, int totalbilhetes, String pista, String aviao){
+    public Voo(int id, String designacao, String estado, int id_aviao, int totalbilhetes, String pista, String aviao, String companhia){
         this.id = id;
         this.designacao  = designacao;
         this.estado = estado;
         this.id_aviao = id_aviao;
         this.aviao = aviao;
         this.pista = pista;
+        this.companhia = companhia;
         this.totalbilhetes = totalbilhetes;
     }
 
 
+    public String getCompanhia() {return companhia;}
+
+    public void setCompanhia(String companhia) {this.companhia = companhia;}
 
     public int getId() {
         return id;

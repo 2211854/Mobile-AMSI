@@ -16,8 +16,11 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
 
 
 public class ListaVoosFragment extends Fragment {
@@ -31,6 +34,8 @@ public class ListaVoosFragment extends Fragment {
     private View v;
     ListView listview;
     ListaVooAdaptador ListaVooAdaptador;
+
+    private ArrayList<Voo> voos;
     TextView textFilter, tv_titulo;
     ArrayAdapter adapter;
     TextInputLayout til_searchFilter;
@@ -47,7 +52,7 @@ public class ListaVoosFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_lista_voos, container, false);
 
         listview = v.findViewById(R.id.lvAviao);
-        ListaVooAdaptador = new ListaVooAdaptador(getContext(), Companhias, Estados,  Avioes, Pistas, Designacoes);
+        ListaVooAdaptador = new ListaVooAdaptador(getContext(), voos);
         listview.setAdapter(ListaVooAdaptador);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

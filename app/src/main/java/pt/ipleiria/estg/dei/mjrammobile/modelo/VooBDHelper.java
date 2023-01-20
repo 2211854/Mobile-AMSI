@@ -13,7 +13,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION=1;
     private static final String TABLE_VOO="voo";
     private static final String DESIGNACAO="designacao", ESTADO="estado",
-            ID_AVIAO = "id_aviao", AVIAO="aviao", PISTA="pista", TOTALBILHETES="totalbilhetes", ID="id";
+            ID_AVIAO = "id_aviao", AVIAO="aviao", PISTA="pista", TOTALBILHETES="totalbilhetes", COMPANHIA="companhia" ,ID="id";
     private final SQLiteDatabase db;
     public VooBDHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -29,6 +29,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
                 ID_AVIAO  + " BIGINT NOT NULL, " +
                 AVIAO  + " VARCHAR NOT NULL, " +
                 PISTA  + " VARCHAR NOT NULL, " +
+                COMPANHIA + " VARCHAR NOT NULL, " +
                 TOTALBILHETES + " INT NOT NULL " +
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTableVoo);
@@ -50,6 +51,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
         values.put(ESTADO, voo.getEstado());
         values.put(ID_AVIAO, voo.getId_aviao());
         values.put(AVIAO, voo.getAviao());
+        values.put(COMPANHIA, voo.getCompanhia());
         values.put(PISTA, voo.getPista());
         values.put(TOTALBILHETES, voo.getTotalbilhetes());
         // db.insert retorna -1 em caso de erro ou o id que foi criado
@@ -73,6 +75,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
         values.put(ID_AVIAO, voo.getId_aviao());
         values.put(AVIAO, voo.getAviao());
         values.put(PISTA, voo.getPista());
+        values.put(COMPANHIA, voo.getCompanhia());
         values.put(TOTALBILHETES, voo.getTotalbilhetes());
         // db.update retorna o numero de linhas atualizadas
         return db.update(TABLE_VOO, values, ID+"=?", new String[]{voo.getId()+""})==1;
@@ -93,10 +96,12 @@ public class VooBDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Voo> getAllVooBD(){
         ArrayList<Voo> voos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_VOO, new String[]{ID,DESIGNACAO, ESTADO, ID_AVIAO, AVIAO, PISTA, TOTALBILHETES}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_VOO, new String[]{ID,DESIGNACAO, ESTADO, ID_AVIAO, AVIAO, PISTA, TOTALBILHETES, COMPANHIA},
+                null, null, null, null, null);
         if(cursor.moveToFirst()){
             do {
-                Voo auxVoo = new Voo(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(6), cursor.getString(5),cursor.getString(4));
+                Voo auxVoo = new Voo(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3),
+                        cursor.getInt(6), cursor.getString(5),cursor.getString(4),cursor.getString(7));
 
                 voos.add(auxVoo);
             }while (cursor.moveToNext());
