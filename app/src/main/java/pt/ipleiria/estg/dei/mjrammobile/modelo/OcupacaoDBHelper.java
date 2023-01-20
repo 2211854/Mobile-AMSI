@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.HardwareRenderer;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class OcupacaoDBHelper extends SQLiteOpenHelper {
 
     public Ocupacao adicionarOcupacaoBD(Ocupacao ocupacao)
     {
-        //adicionar o perfil a bd
+        //adicionar o ocupacao a bd
         ContentValues values = new ContentValues();
         values.put(OCUPACAO, ocupacao.getOcupacao());
         values.put(CLASSE, ocupacao.getClasse());
@@ -56,7 +55,7 @@ public class OcupacaoDBHelper extends SQLiteOpenHelper {
 
     public void removerAllOcupacao()
     {
-        //remover todos os voos da bd
+        //remover todos os ocupacoes da bd
         db.delete(TABLE_OCUPACAO, null, null);
     }
 
