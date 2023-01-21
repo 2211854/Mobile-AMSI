@@ -29,7 +29,6 @@
                 android:src="@drawable/combustivel"
                 />
             <TextView
-                android:id="@+id/tv_combustivel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -40,6 +39,8 @@
                 android:textSize="20sp">
             </TextView>
             <TextView
+
+                android:id="@+id/tv_combustivel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -58,7 +59,6 @@
                 android:src="@drawable/primeira_classse"
                 />
             <TextView
-                android:id="@+id/tv_first_classe"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -69,6 +69,7 @@
                 android:textSize="20sp">
             </TextView>
             <TextView
+                android:id="@+id/tv_first_classe"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -87,7 +88,6 @@
                 android:src="@drawable/business"
                 />
             <TextView
-                android:id="@+id/tv_Business"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -98,6 +98,7 @@
                 android:textSize="20sp">
             </TextView>
             <TextView
+                android:id="@+id/tv_Business"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -116,7 +117,6 @@
                 android:src="@drawable/economica"
                 />
             <TextView
-                android:id="@+id/tv_Economica"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -127,6 +127,7 @@
                 android:textSize="20sp">
             </TextView>
             <TextView
+                android:id="@+id/tv_Economica"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -145,7 +146,6 @@
                 android:src="@drawable/economica_premium"
                 />
             <TextView
-                android:id="@+id/tv_Premium"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -156,6 +156,7 @@
                 android:textSize="20sp">
             </TextView>
             <TextView
+                android:id="@+id/tv_Premium"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"

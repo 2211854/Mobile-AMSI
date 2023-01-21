@@ -31,13 +31,11 @@ public class ListaTarefasAdaptador extends BaseAdapter {
         return tarefas.size();
     }
     @Override
-    public Object getItem(int i) {
-        return null;
-    }
+    public Object getItem(int i) {return tarefas.get(i);}
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return tarefas.get(i).getId();
     }
 
     @Override

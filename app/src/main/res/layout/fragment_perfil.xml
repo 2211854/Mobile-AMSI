@@ -46,7 +46,6 @@
             android:gravity="center"
             android:padding="8sp"
             android:textColor="@color/black"
-            android:text="gay@email.com"
             android:textSize="15sp">
         </TextView>
     </TableRow>

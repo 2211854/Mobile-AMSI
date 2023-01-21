@@ -14,11 +14,15 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 
@@ -40,6 +44,7 @@ public class Singleton {
     private OcupacaoDBHelper ocupacaoDB;
     private PerfilDBHelper perfilDB;
     private Perfil perfil;
+    private TarefasListener TarefasListener;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -52,6 +57,9 @@ public class Singleton {
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
+    }
+    public void setTarefasListener(TarefasListener TarefasListener) {
+        this.TarefasListener = TarefasListener;
     }
 
     private Singleton(Context context){
@@ -184,4 +192,5 @@ public class Singleton {
         if (auxTarefa!=null)
             tarefaDb.removerTarefaBD(id);
     }
+    
 }
