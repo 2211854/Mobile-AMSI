@@ -38,6 +38,8 @@ public class Singleton {
     private TarefaDBHelper tarefaDb;
     private ArrayList<Ocupacao> ocupacoes;
     private OcupacaoDBHelper ocupacaoDB;
+    private PerfilDBHelper perfilDB;
+    private Perfil perfil;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -95,6 +97,12 @@ public class Singleton {
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
         voos=vooDb.getAllVooBD();
         return new ArrayList(voos);
+    }
+
+    //buscar tudo a base dados perfil
+    public Perfil getPerfilBD() { // return da copia dos Voos
+        perfil=perfilDB.getAllPerfilBD();
+        return perfil;
     }
 
     public Voo getVoo(int idVoo){
