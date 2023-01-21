@@ -70,7 +70,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/tv_Nib"
+            android:id="@+id/tv_nib"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -108,6 +108,35 @@
             android:textSize="15sp">
         </TextView>
     </TableRow>
+    <TableRow android:background="@drawable/table_detalhes_meio">
+        <ImageView
+            android:id="@+id/imgDataregisto"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_data_registo"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="left"
+            android:padding="8sp"
+            android:text="@string/data_registo"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:id="@+id/tv_dataregisto"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:padding="8sp"
+            android:textColor="@color/black"
+            android:text="18/01/2023 10:30:29"
+            android:textSize="15sp">
+        </TextView>
+    </TableRow>
 
     <Space
         android:layout_width="match_parent"
@@ -115,12 +144,12 @@
         android:layout_weight="0.1" />
 
     <Button
-        android:id="@+id/btnListaTarefas"
+        android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_login"
         android:backgroundTint="@color/dourado_icon"
-        android:text="Guardar"
+        android:text="Terminar Sessão"
         android:textColor="@android:color/white" />
 
 </TableLayout>
