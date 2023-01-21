@@ -41,7 +41,7 @@ public class VooJsonParser {
         return voos;
     }
 
-    /*public static ArrayList<Tarefa> parserJsonTarefas(JSONArray response) {
+    public static ArrayList<Tarefa> parserJsonTarefas(JSONArray response) {
         ArrayList<Tarefa> tarefas = new ArrayList<>();
         try {
             for (int i = 0; i < response.length(); i++) {
@@ -59,7 +59,23 @@ public class VooJsonParser {
             e.printStackTrace();
         }
         return tarefas;
-    }*/
+    }
+    public static Tarefa parserJsonTarefa(String response) {
+        Tarefa auxTarefas = null;
+        try {
+            JSONObject tarefa = new JSONObject(response);
+            int id = tarefa.getInt("id");
+            int id_voo = tarefa.getInt("id_voo");
+            int id_hangar = tarefa.getInt("id_hangar");
+            int id_recurso = tarefa.getInt("id_recurso");
+            String designacao = tarefa.getString("designacao");
+            String estado = tarefa.getString("estado");
+            auxTarefas = new Tarefa(id, id_voo, id_hangar, id_voo, designacao, estado);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return auxTarefas;
+    }
 
 
     public static String parserJsonLogin(String response) { // static para nao ter de fazer new
