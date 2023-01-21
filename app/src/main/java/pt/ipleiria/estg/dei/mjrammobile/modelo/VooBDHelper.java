@@ -24,8 +24,7 @@ public class VooBDHelper extends SQLiteOpenHelper {
         String sqlCreateTableVoo ="CREATE TABLE " + TABLE_VOO+ "(" +
                 ID + " BIGINT  PRIMARY KEY, " +
                 DESIGNACAO  + " VARCHAR NOT NULL, " +
-                ESTADO  + "TEXT CHECK(ESTADO in ('atrasado', 'cancelado', 'concluido', 'planeado')) NOT NULL " +
-                "NOT NULL, " +
+                ESTADO  + " TEXT CHECK(estado in ('atrasado', 'cancelado', 'concluido', 'planeado')) NOT NULL, " +
                 ID_AVIAO  + " BIGINT NOT NULL, " +
                 AVIAO  + " VARCHAR NOT NULL, " +
                 PISTA  + " VARCHAR NOT NULL, " +

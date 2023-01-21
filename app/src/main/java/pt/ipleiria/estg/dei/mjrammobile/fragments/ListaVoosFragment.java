@@ -20,16 +20,13 @@ import java.util.ArrayList;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
 
 
-public class ListaVoosFragment extends Fragment {
+public class ListaVoosFragment extends Fragment implements VoosListener {
 
-    String Companhias[] = {"TAP","TAP","TAP"};
-    String Avioes[] = {"A380","A380","A380"};
-    String Estados[] = {"Aterrado","Em Curso","Em manutenção"};
-    String Pistas[] = {"Norte 1","Note 2","Sul Encarpado"};
-    String Designacoes[] = {"Voo1","voo2","voo4"};
 
     private View v;
     ListView listview;
@@ -40,20 +37,24 @@ public class ListaVoosFragment extends Fragment {
     ArrayAdapter adapter;
     TextInputLayout til_searchFilter;
 
+    public ListaVoosFragment() {
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_lista_voos, container, false);
-
         listview = v.findViewById(R.id.lvAviao);
-        ListaVooAdaptador = new ListaVooAdaptador(getContext(), voos);
-        listview.setAdapter(ListaVooAdaptador);
+
+        /*ListaVooAdaptador = new ListaVooAdaptador(getContext(), voos);
+        listview.setAdapter(ListaVooAdaptador);*/
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -81,7 +82,17 @@ public class ListaVoosFragment extends Fragment {
             }
         });
 
+        Singleton.getInstance(getContext()).setVoosListener(this);
+        Singleton.getInstance(getContext()).getAllVoosAPI(getContext());
         return v;
 
+    }
+
+    @Override
+    public void onRefreshListaVoos(ArrayList<Voo> listaVoos) {
+
+        if(listaVoos != null){
+            listview.setAdapter(new ListaVooAdaptador(getContext(), listaVoos));
+        }
     }
 }

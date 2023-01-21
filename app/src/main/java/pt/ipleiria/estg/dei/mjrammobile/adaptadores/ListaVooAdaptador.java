@@ -34,12 +34,12 @@ public class ListaVooAdaptador extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return voos.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return voos.get(i).getId();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ListaVooAdaptador extends BaseAdapter {
         }
 
 
-
+        viewHolder.update(voos.get(i));
         return view;
     }
     private class ViewHolderListaVoos{
@@ -74,12 +74,12 @@ public class ListaVooAdaptador extends BaseAdapter {
             tv_companhia = view.findViewById(R.id.tv_custom_lista_voo_companhia);
         }
 
-        public void update(Voo voos){
-            tv_designacao.setText(voos.getDesignacao());
-            tv_estado.setText(voos.getEstado());
-            tv_aviao.setText(voos.getAviao());
-            tv_pista.setText(voos.getPista());
-            tv_companhia.setText(voos.getCompanhia());
+        public void update(Voo voo){
+            tv_designacao.setText(voo.getDesignacao());
+            tv_estado.setText(voo.getEstado());
+            tv_aviao.setText(voo.getAviao());
+            tv_pista.setText(voo.getPista());
+            tv_companhia.setText(voo.getCompanhia());
         }
     }
 }

@@ -48,7 +48,7 @@
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:text="aulas-amsi"
+        android:text="12345678"
         android:textSize="17sp" />
 
     <Space

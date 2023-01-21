@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import java.util.Map;
 import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
 import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 
@@ -30,9 +32,12 @@ public class Singleton {
 
     private static  Singleton instance = null;
     private static RequestQueue volleyQueue = null;
+    private String token;
+    private static String mUrlAPIVoos ="http://10.0.2.2:80/WEB-PSI-SIS/mjram/backend/web/api/voo/allvoo?access-token=";
     private static final String mUrlAPILogin = "http://10.0.2.2:80/WEB-PSI-SIS/mjram/backend/web/api/auth/login";
     //private static final String mUrlAPILogin = "http://amsi.dei.estg.ipleiria.pt/api/auth/login";
     private LoginListener loginListener;
+    private VoosListener voosListener;
 
     private ArrayList<Voo> voos;
     private VooBDHelper vooDb;
@@ -62,7 +67,21 @@ public class Singleton {
         this.TarefasListener = TarefasListener;
     }
 
+    public void setVoosListener(VoosListener voosListener) { // para informar a vista
+        this.voosListener = voosListener;
+    }
+
     private Singleton(Context context){
+
+        voos = new ArrayList<>();
+        vooDb = new VooBDHelper(context);
+        aviaos = new ArrayList<>();
+        aviaoDb = new AviaoDBHelper(context);
+        tarefas = new ArrayList<>();
+        tarefaDb = new TarefaDBHelper(context);
+        ocupacoes = new ArrayList<>();
+        ocupacaoDB = new OcupacaoDBHelper(context);
+        perfilDB = new PerfilDBHelper(context);
 
     }
 
@@ -101,6 +120,40 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
+
+    public void getAllVoosAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        mUrlAPIVoos = mUrlAPIVoos + token;
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (voosListener!=null)
+            {
+                voosListener.onRefreshListaVoos(vooDb.getAllVooBD());
+            }
+        }else
+        {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIVoos, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    voos = VooJsonParser.parserJsonVoos(response);
+                    adicionarVoosBD(voos);
+
+                    if (voosListener!=null)
+                    {
+                        voosListener.onRefreshListaVoos(voos);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
     //buscar tudo a base dados voo
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
         voos=vooDb.getAllVooBD();
@@ -183,6 +236,7 @@ public class Singleton {
             adicionarAviaoBD(A);
         }
     }
+
     public void adicionarAviaoBD(Aviao A) {aviaoDb.adicionarAviaoBD(A);}
 
     //remover Tarefa
