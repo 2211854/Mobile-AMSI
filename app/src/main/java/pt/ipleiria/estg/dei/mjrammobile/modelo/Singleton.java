@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
+import pt.ipleiria.estg.dei.mjrammobile.fragments.ListaTarefasFragment;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
@@ -38,6 +39,7 @@ public class Singleton {
     //private static final String mUrlAPILogin = "http://amsi.dei.estg.ipleiria.pt/api/auth/login";
     private LoginListener loginListener;
     private VoosListener voosListener;
+    private TarefasListener tarefasListener;
 
     private ArrayList<Voo> voos;
     private VooBDHelper vooDb;
@@ -49,7 +51,6 @@ public class Singleton {
     private OcupacaoDBHelper ocupacaoDB;
     private PerfilDBHelper perfilDB;
     private Perfil perfil;
-    private TarefasListener TarefasListener;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -63,8 +64,8 @@ public class Singleton {
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
     }
-    public void setTarefasListener(TarefasListener TarefasListener) {
-        this.TarefasListener = TarefasListener;
+    public void setTarefasListener(TarefasListener tarefasListener) {
+        this.tarefasListener = tarefasListener;
     }
 
     public void setVoosListener(VoosListener voosListener) { // para informar a vista
@@ -153,6 +154,70 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
+
+    public void getAllTarefasAPI(final Context context){
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (tarefasListener !=null)
+            {
+                tarefasListener.onRefreshListaTarefas(tarefaDb.getAllTarefaBD());
+            }
+        }else
+        {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPILogin, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    tarefas = VooJsonParser.parserJsonTarefas(response);
+                    adicionarTarefasBD(tarefas);
+
+                    if (tarefasListener!=null)
+                    {
+                        tarefasListener.onRefreshListaTarefas(tarefas);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    /*public void adicionarLivroAPI(final Tarefa tarefa , final Context context, String token){
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPILogin, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    adicionarTarefaBD(VooJsonParser.parserJsonTarefa(response));
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }){
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    //params.put("token", token);
+                    params.put("id_voo", tarefa.getId_voo()+"");// Transformar em string
+                    params.put("id_hangar", tarefa.getId_hangar()+"");
+                    params.put("id_recurso", tarefa.getId_recurso()+"");
+                    params.put("designacao", tarefa.getDesignacao());
+                    params.put("estado", tarefa.getEstado());
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+
+    }*/
 
     //buscar tudo a base dados voo
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
@@ -246,5 +311,5 @@ public class Singleton {
         if (auxTarefa!=null)
             tarefaDb.removerTarefaBD(id);
     }
-    
+
 }

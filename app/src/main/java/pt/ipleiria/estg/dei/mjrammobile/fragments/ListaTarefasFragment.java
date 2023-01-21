@@ -21,8 +21,13 @@ import java.util.ArrayList;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
-public class ListaTarefasFragment extends Fragment {
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
+
+public class ListaTarefasFragment extends Fragment implements TarefasListener {
 
     private View v;
     private ListView listview;
@@ -84,7 +89,17 @@ public class ListaTarefasFragment extends Fragment {
             }
         });
 
+        Singleton.getInstance(getContext()).setTarefasListener(this);
+        Singleton.getInstance(getContext()).getAllTarefasAPI(getContext());
+
         return v;
     }
 
+    @Override
+    public void onRefreshListaTarefas(ArrayList<Tarefa> listaTarefas) {
+
+        if(listaTarefas != null){
+            listview.setAdapter(new ListaTarefasAdaptador(getContext(), listaTarefas));
+        }
+    }
 }
