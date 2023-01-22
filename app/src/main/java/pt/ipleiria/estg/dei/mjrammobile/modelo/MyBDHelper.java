@@ -118,7 +118,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         int id = (int)db.insert(TABLE_VOO, null, values);
         if(id>-1)
         {
-            voo.setId(id);
             return voo;
         }
         return null;
@@ -234,7 +233,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         int id = (int)db.insert(TABLE_TAREFA, null, values);
         if(id>-1)
         {
-            tarefa.setId(id);
             return tarefa;
         }
         return null;
@@ -349,7 +347,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         int id = (int)db.insert(TABLE_AVIAO, null, values);
         if(id>-1)
         {
-            aviao.setId(id);
             return aviao;
         }
         return null;
