@@ -70,8 +70,13 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         FB_Add_tarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AdicionarTarefaFragment fragment = new AdicionarTarefaFragment();
+                Bundle arguments = new Bundle();
+                arguments.putInt("ID_VOO", id_voo);
+                fragment.setArguments(arguments);
+
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, new AdicionarTarefaFragment());
+                fr.replace(R.id.Fl_menu,fragment);
                 fr.commit();
             }
         });

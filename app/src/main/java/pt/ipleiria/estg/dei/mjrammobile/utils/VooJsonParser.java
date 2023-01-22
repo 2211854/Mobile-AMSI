@@ -11,6 +11,8 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
 
     import java.util.ArrayList;
 
+    import pt.ipleiria.estg.dei.mjrammobile.modelo.Hangar;
+    import pt.ipleiria.estg.dei.mjrammobile.modelo.Recurso;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
 
@@ -52,7 +54,8 @@ public class VooJsonParser {
                 String id_recurso = tarefa.getString("id_recurso");
                 String designacao = tarefa.getString("designacao");
                 String estado = tarefa.getString("estado");
-                Tarefa auxTarefa = new Tarefa(id, id_voo, id_hangar, id_recurso, estado, designacao);
+                int quantidade = tarefa.getInt("quantidade");
+                Tarefa auxTarefa = new Tarefa(id, id_voo, id_hangar, id_recurso, estado, designacao, quantidade);
                 tarefas.add(auxTarefa);
             }
         } catch (JSONException e) {
@@ -61,22 +64,56 @@ public class VooJsonParser {
         return tarefas;
     }
 
-    /*public static Tarefa parserJsonTarefa(String response) {
+    public static ArrayList<Recurso> parserJsonRecursos(JSONArray response) {
+        ArrayList<Recurso> recursos = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject recurso = (JSONObject) response.get(i);
+                int id = recurso.getInt("id");
+                String nome = recurso.getString("nome");
+                String unidademedida = recurso.getString("unidademedida");
+                Recurso auxRecursos = new Recurso(id, nome, unidademedida);
+                recursos.add(auxRecursos);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return recursos;
+    }
+
+    public static ArrayList<Hangar> parserJsonHangares(JSONArray response) {
+        ArrayList<Hangar> hangares = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject hangar = (JSONObject) response.get(i);
+                int id = hangar.getInt("id");
+                String designacao = hangar.getString("designacao");
+                Hangar auxHangares = new Hangar(id, designacao);
+                hangares.add(auxHangares);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return hangares;
+    }
+
+    public static Tarefa parserJsonTarefa(String response) {
         Tarefa auxTarefas = null;
         try {
             JSONObject tarefa = new JSONObject(response);
             int id = tarefa.getInt("id");
             int id_voo = tarefa.getInt("id_voo");
-            int id_hangar = tarefa.getInt("id_hangar");
-            int id_recurso = tarefa.getInt("id_recurso");
+            String id_hangar = tarefa.getString("id_hangar");
+            String id_recurso = tarefa.getString("id_recurso");
             String designacao = tarefa.getString("designacao");
             String estado = tarefa.getString("estado");
-            auxTarefas = new Tarefa(id, id_voo, id_hangar, id_voo, designacao, estado);
+            int quantidade = tarefa.getInt("quantidade");
+            auxTarefas = new Tarefa(id, id_voo, id_hangar, id_recurso, designacao, estado, quantidade);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return auxTarefas;
-    }*/
+    }
 
 
     public static String parserJsonLogin(String response) { // static para nao ter de fazer new

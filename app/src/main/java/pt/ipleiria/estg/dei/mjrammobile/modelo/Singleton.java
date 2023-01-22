@@ -21,7 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.HangarListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.RecursoListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
 import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
@@ -40,12 +42,16 @@ public class Singleton {
     private LoginListener loginListener;
     private VoosListener voosListener;
     private TarefasListener tarefasListener;
+    private RecursoListener recursosListener;
+    private HangarListener hangarListener;
 
     private ArrayList<Voo> voos;
     private MyBDHelper myBDHelper;
     private ArrayList<Aviao> aviaos;
     private ArrayList<Tarefa> tarefas;
     private ArrayList<Ocupacao> ocupacoes;
+    private ArrayList<Recurso> recursos;
+    private ArrayList<Hangar> hangares;
     private Perfil perfil;
 
     public static synchronized Singleton getInstance(Context context){
@@ -67,6 +73,12 @@ public class Singleton {
     public void setVoosListener(VoosListener voosListener) { // para informar a vista
         this.voosListener = voosListener;
     }
+    public void setRecursosListener(RecursoListener recursosListener) { // para informar a vista
+        this.recursosListener = recursosListener;
+    }
+    public void setHangaresListener(HangarListener hangaresListener) { // para informar a vista
+        this.hangarListener = hangaresListener;
+    }
 
     private Singleton(Context context){
 
@@ -75,7 +87,8 @@ public class Singleton {
         aviaos = new ArrayList<>();
         tarefas = new ArrayList<>();
         ocupacoes = new ArrayList<>();
-
+        recursos = new ArrayList<>();
+        hangares = new ArrayList<>();
     }
 
     public void loginAPI(final String username, final String password, final Context context){
@@ -181,12 +194,69 @@ public class Singleton {
         }
     }
 
-    /*public void adicionarLivroAPI(final Tarefa tarefa , final Context context, String token){
+    public void getAllRecursoAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
-            StringRequest req = new StringRequest(Request.Method.POST, mUrlAPILogin, new Response.Listener<String>() {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIBase+ "recurso/all" + mUrlAPIAccessToken + token, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    recursos = VooJsonParser.parserJsonRecursos(response);
+
+                    if (recursosListener!=null)
+                    {
+                        recursosListener.onRefreshListaRecurso(recursos);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public void getAllHangarAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIBase+ "hangar/" + mUrlAPIAccessToken + token, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    hangares = VooJsonParser.parserJsonHangares(response);
+
+                    if (hangarListener!=null)
+                    {
+                        hangarListener.onRefreshListaHangar(hangares);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public void adicionarTarefaAPI(final Tarefa tarefa , int id_voo,final Context context){
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            String mUrl = mUrlAPIBase+ "tarefa/"+ id_voo + "/create" + mUrlAPIAccessToken + token;
+            StringRequest req = new StringRequest(Request.Method.POST, mUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     adicionarTarefaBD(VooJsonParser.parserJsonTarefa(response));
@@ -201,19 +271,19 @@ public class Singleton {
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    //params.put("token", token);
                     params.put("id_voo", tarefa.getId_voo()+"");// Transformar em string
                     params.put("id_hangar", tarefa.getId_hangar()+"");
                     params.put("id_recurso", tarefa.getId_recurso()+"");
                     params.put("designacao", tarefa.getDesignacao());
                     params.put("estado", tarefa.getEstado());
+                    params.put("quantidade", tarefa.getQuantidade()+"");
                     return params;
                 }
             };
             volleyQueue.add(req);
         }
 
-    }*/
+    }
 
     //buscar tudo a base dados voo
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
@@ -267,8 +337,7 @@ public class Singleton {
     }
 
     //Adicionar base dados voo
-    public void adicionarVoosBD(ArrayList<Voo> voos)
-    {
+    public void adicionarVoosBD(ArrayList<Voo> voos) {
         myBDHelper.removerAllVoo();
         for(Voo V:voos)
         {
@@ -279,8 +348,7 @@ public class Singleton {
         myBDHelper.adicionarVooBD(v);}
 
     //Adicionar base dados Tarefa
-    public void adicionarTarefasBD(ArrayList<Tarefa> tarefas)
-    {
+    public void adicionarTarefasBD(ArrayList<Tarefa> tarefas) {
         myBDHelper.removerAllTarefa();
         for(Tarefa T:tarefas)
         {

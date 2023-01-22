@@ -48,23 +48,26 @@
     </TableRow>
     <TableRow android:background="@drawable/table_detalhes_meio">
         <TextView
-            android:id="@+id/tv_add_estado"
+            android:id="@+id/tv_add_quantidade"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="8sp"
-            android:text="@string/estado"
+            android:text="@string/quantidade"
             android:textColor="@color/black"
             android:textSize="20sp">
         </TextView>
 
-        <Spinner
-            android:id="@+id/sp_add_tarefas"
+
+        <EditText
+            android:id="@+id/ED_quantidade"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:padding="8sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:inputType="number"
+            android:text="1" />
     </TableRow>
 
     <TableRow android:background="@drawable/table_detalhes_meio">
@@ -80,15 +83,13 @@
         </TextView>
 
 
-        <EditText
-            android:id="@+id/ED_recurso"
+        <Spinner
+            android:id="@+id/sp_add_recurso"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:padding="8sp"
-            android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:text="Escreva o recurso" />
+            android:textColor="@color/black" />
     </TableRow>
     <TableRow android:background="@drawable/table_detalhes_baixo">
         <TextView
@@ -103,15 +104,13 @@
         </TextView>
 
 
-        <EditText
-            android:id="@+id/ED_hangar"
+        <Spinner
+            android:id="@+id/sp_add_hangar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:padding="8sp"
-            android:textColor="@color/black"
-            android:inputType="textPersonName"
-            android:text="Escreva o hangar" />
+            android:textColor="@color/black" />
     </TableRow>
 
     <Space

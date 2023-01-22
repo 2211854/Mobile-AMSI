@@ -25,10 +25,5 @@
     <string name="nib">NIB:</string>
     <string name="telemovel">Telemovel:</string>
     <string name="lista_voos">Lista Voos</string>
-
-    <string-array name="estados">
-        <item>concluido</item>
-        <item>planeada</item>
-        <item>cancelado</item>
-    </string-array>
+    <string name="quantidade">Quantidade:</string>
 </resources>

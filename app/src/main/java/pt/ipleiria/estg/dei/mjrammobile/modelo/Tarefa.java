@@ -2,16 +2,25 @@ package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 public class Tarefa {
 
-    private int id, id_voo;
+    private int id, id_voo, quantidade;
     private String estado, designacao,id_hangar,id_recurso;
 
-    public Tarefa(int id, int id_voo, String id_hangar, String id_recurso, String estado, String designacao) {
+    public Tarefa(int id, int id_voo, String id_hangar, String id_recurso, String estado, String designacao, int quantidade) {
         this.id = id;
         this.id_voo = id_voo;
         this.id_hangar = id_hangar;
         this.id_recurso = id_recurso;
         this.estado = estado;
         this.designacao = designacao;
+        this.quantidade = quantidade;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public int getId() {

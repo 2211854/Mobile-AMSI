@@ -18,7 +18,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
     private static final String NIB ="nib", EMAIL ="email", TELEMOVEL = "telemovel", NOMES ="nomes", DATAREGISTO="dataregisto";
 
     private static final String TABLE_TAREFA="tarefa";
-    private static final String ID_VOO="id_voo",ID_HANGAR="id_hangar",ID_RECURSO="id_recurso";
+    private static final String ID_VOO="id_voo",ID_HANGAR="id_hangar",ID_RECURSO="id_recurso", QUANTIDADE = "quantidade";
 
     private static final String TABLE_OCUPACAO ="ocupacao";
     private static final String CLASSE ="classe", OCUPACAO = "ocupacao";
@@ -266,10 +266,10 @@ public class MyBDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Tarefa> getAllTarefaBD(){
         ArrayList<Tarefa> tarefas = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_TAREFA, new String[]{ID, ID_VOO,ID_HANGAR, ID_RECURSO, ESTADO,DESIGNACAO }, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TAREFA, new String[]{ID, ID_VOO,ID_HANGAR, ID_RECURSO, ESTADO,DESIGNACAO, QUANTIDADE}, null, null, null, null, null);
         if(cursor.moveToFirst()){
             do {
-                Tarefa auxTarefa = new Tarefa(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3) , cursor.getString(4), cursor.getString(5));
+                Tarefa auxTarefa = new Tarefa(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3) , cursor.getString(4), cursor.getString(5), cursor.getInt(6));
 
                 tarefas.add(auxTarefa);
             }while (cursor.moveToNext());
