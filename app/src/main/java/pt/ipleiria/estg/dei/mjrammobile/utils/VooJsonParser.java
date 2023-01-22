@@ -67,15 +67,13 @@ public class VooJsonParser {
 
     public static Perfil parserJsonPerfil(JSONObject response){
         JSONObject perfil = (JSONObject) response;
-        System.out.println(perfil);
         try {
-
             String nib = perfil.getString("nib");
             String email = perfil.getString("email");
             String telemovel = perfil.getString("telemovel");
             String nomes = perfil.getString("nomes");
             String dataregisto = perfil.getString("dataregisto");
-            return new Perfil(nib, email, telemovel, nomes, dataregisto);
+            return new Perfil(nib, email, telemovel, nomes, dataregisto,1);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

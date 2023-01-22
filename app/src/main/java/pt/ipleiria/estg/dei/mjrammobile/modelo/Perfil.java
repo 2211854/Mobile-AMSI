@@ -1,14 +1,17 @@
 package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 public class Perfil {
+    private int id;
     private String nib,email,telemovel,nomes,dataregisto;
 
-    public Perfil(String nib, String email, String telemovel, String nomes,String dataregisto){
+    public Perfil( String nib, String email, String telemovel, String nomes,String dataregisto, int id){
+        System.out.println(email);
         this.nib = nib;
         this.email  = email;
         this.telemovel = telemovel;
         this.nomes = nomes;
         this.dataregisto = dataregisto;
+        this.id = id;
     }
 
     public String getDataregisto() {
@@ -49,5 +52,13 @@ public class Perfil {
 
     public void setNomes(String nomes) {
         this.nomes = nomes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

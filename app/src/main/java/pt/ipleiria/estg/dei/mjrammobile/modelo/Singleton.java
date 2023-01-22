@@ -216,13 +216,21 @@ public class Singleton {
             if (perfilListener !=null)
             {
                 perfilListener.onRefreshPerfil(myBDHelper.getPerfilBD());
+
+            }
+            else{
+                System.out.println("ggeeg");
             }
         }else
         {
-            JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
+
+            JsonObjectRequest req =new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
+
+                    System.out.println(response);
                     perfil = VooJsonParser.parserJsonPerfil(response);
+                    perfil.setId(1);
                     adicionarPerfilDB(perfil);
 
                     if (perfilListener!=null)
@@ -339,6 +347,7 @@ public class Singleton {
     //buscar tudo a base dados perfil
     public Perfil getPerfilBD() { // return da copia dos Voos
         perfil= myBDHelper.getPerfilBD();
+
         return perfil;
     }
 

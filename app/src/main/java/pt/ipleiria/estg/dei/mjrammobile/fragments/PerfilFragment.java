@@ -1,5 +1,8 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,17 +12,21 @@ import androidx.lifecycle.viewmodel.CreationExtras;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
+import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.PerfilListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Perfil;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
+import pt.ipleiria.estg.dei.mjrammobile.vistas.LoginActivity;
 
 public class PerfilFragment extends Fragment implements PerfilListener {
 
@@ -33,6 +40,7 @@ public class PerfilFragment extends Fragment implements PerfilListener {
     private View v;
 
     private TextView tvEmail, tvNib,tvTelemovel,tvDataregisto;
+    private Button btnLogout;
 
     private Perfil perfil;
 
@@ -51,9 +59,6 @@ public class PerfilFragment extends Fragment implements PerfilListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Singleton.getInstance(getContext()).setPerfilListener(this);
-        Singleton.getInstance(getContext()).getPerfilAPI(getContext());
-        perfil = Singleton.getInstance(getContext()).getPerfilBD();
 
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_perfil, container, false);
@@ -61,37 +66,35 @@ public class PerfilFragment extends Fragment implements PerfilListener {
         tvNib = v.findViewById(R.id.tv_nib);
         tvTelemovel = v.findViewById(R.id.tv_telemovel);
         tvDataregisto = v.findViewById(R.id.tv_dataregisto);
+        btnLogout = v.findViewById(R.id.btn_logout);
+
+        Singleton.getInstance(getContext()).setPerfilListener(this);
+        Singleton.getInstance(getContext()).getPerfilAPI(getContext());
+        perfil = Singleton.getInstance(getContext()).getPerfilBD();
 
 
-        tvEmail.setText(perfil.getEmail());
-        tvNib.setText(perfil.getNib());
-        tvTelemovel.setText(perfil.getTelemovel());
-        tvDataregisto.setText(perfil.getDataregisto());
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+                sharedPreferences.edit().clear().commit();
+
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-//        Button btnLogout = (Button) v.findViewById(R.id.btnLogout);
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                til_searchFilter = (TextInputLayout) v.findViewById(R.id.searchFilter_aviao);
-//                tv_titulo = (TextView) v.findViewById(R.id.tv_titulo_lista_voos);
-//                if(tv_titulo.getVisibility() == v.VISIBLE){
-//                    tv_titulo.setVisibility(tv_titulo.GONE);
-//                    til_searchFilter.setVisibility(til_searchFilter.VISIBLE);
-//                    til_searchFilter.setEnabled(true);
-//                }else{
-//                    tv_titulo.setVisibility(tv_titulo.VISIBLE);
-//                    til_searchFilter.setVisibility(til_searchFilter.GONE);
-//                    til_searchFilter.setEnabled(false);
-//                }
-//            }
-//        });
         return v;
     }
 
     @Override
     public void onRefreshPerfil(Perfil perfil) {
-
+        tvEmail.setText(perfil.getEmail());
+        tvNib.setText(perfil.getNib());
+        tvTelemovel.setText(perfil.getTelemovel());
+        tvDataregisto.setText(perfil.getDataregisto());
     }
 
     @NonNull

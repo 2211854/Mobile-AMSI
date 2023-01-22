@@ -48,10 +48,11 @@ public class MyBDHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(sqlCreateTableVoo);
 
         String sqlCreateTablePerfil ="CREATE TABLE " + TABLE_PERFIL+ "(" +
-                NOMES + " TEXT  NOT NULL, " +
+                ID + " BIGINT  PRIMARY KEY, " +
+                NOMES + " VARCHAR  NOT NULL, " +
                 TELEMOVEL + " VARCHAR NOT NULL, " +
                 NIB + " VARCHAR NOT NULL, " +
-                EMAIL + " VARCHAR PRIMARY KEY," +
+                EMAIL + " VARCHAR NOT NULL," +
                 DATAREGISTO + " VARCHAR NOT NULL"+
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTablePerfil);
@@ -169,8 +170,10 @@ public class MyBDHelper extends SQLiteOpenHelper {
 
     public Perfil adicionarPerfilBD(Perfil perfil)
     {
+
         //adicionar o perfil a bd
         ContentValues values = new ContentValues();
+        values.put(ID, 1);
         values.put(NOMES, perfil.getNomes());
         values.put(TELEMOVEL, perfil.getTelemovel());
         values.put(EMAIL, perfil.getEmail());
@@ -185,34 +188,33 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return null;
     }
 
-
-    public Boolean editarPerfilBD(Perfil perfil)
-    {
-        //editar um perfil especifico da bd
-        ContentValues values = new ContentValues();
-        values.put(TELEMOVEL, perfil.getTelemovel());
-        values.put(EMAIL, perfil.getEmail());
-        values.put(NIB, perfil.getNib());
-        values.put(DATAREGISTO, perfil.getDataregisto());
-        // db.update retorna o numero de linhas atualizadas
-        return db.update(TABLE_PERFIL, values, EMAIL +"=?", new String[]{perfil.getEmail()+""})==1;
-
-    }
+//
+//    public Boolean editarPerfilBD(Perfil perfil)
+//    {
+//        //editar um perfil especifico da bd
+//        ContentValues values = new ContentValues();
+//        values.put(TELEMOVEL, perfil.getTelemovel());
+//        values.put(EMAIL, perfil.getEmail());
+//        values.put(NIB, perfil.getNib());
+//        values.put(DATAREGISTO, perfil.getDataregisto());
+//        // db.update retorna o numero de linhas atualizadas
+//        return db.update(TABLE_PERFIL, values, EMAIL +"=?", new String[]{perfil.getEmail()+""})==1;
+//
+//    }
 
     public Boolean removerPerfilBD()
     {
-        //remover um perfil especifico da bd
+        //remover os perfis da bd
         return db.delete(TABLE_PERFIL, null, null)==1;
     }
 
 
 
     public Perfil getPerfilBD(){
-        Cursor cursor = db.query(TABLE_PERFIL, new String[]{NOMES, TELEMOVEL, EMAIL, NIB,DATAREGISTO}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_PERFIL, new String[]{NIB, EMAIL, TELEMOVEL, NOMES,DATAREGISTO,ID}, null, null, null, null, null);
         if(cursor.moveToFirst()){
 
-            Perfil perfil = new Perfil(cursor.getString(3), cursor.getString(2), cursor.getString(1),cursor.getString(0),cursor.getString(4));
-            System.out.println(perfil.getNomes());
+            Perfil perfil = new Perfil(cursor.getString(0), cursor.getString(1), cursor.getString(2),cursor.getString(3),cursor.getString(4),1);
             cursor.close();
             return perfil;
         }
