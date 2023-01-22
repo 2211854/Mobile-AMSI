@@ -3,11 +3,12 @@ package pt.ipleiria.estg.dei.mjrammobile.modelo;
 import java.util.ArrayList;
 
 public class Aviao {
-    private int id,combustivelatual;
+    private int id,combustivelatual,combustivelmaximo;
     private ArrayList<Ocupacao> ocupacoes;
-    public Aviao(int id, int combustivelatual, ArrayList<Ocupacao> ocupacoes){
+    public Aviao(int id, int combustivelatual,int combustivelmaximo, ArrayList<Ocupacao> ocupacoes){
         this.id = id;
         this.combustivelatual  = combustivelatual;
+        this.combustivelmaximo  = combustivelmaximo;
         this.ocupacoes = ocupacoes;
     }
 
@@ -33,5 +34,13 @@ public class Aviao {
 
     public void setCombustivelatual(int combustivelatual) {
         this.combustivelatual = combustivelatual;
+    }
+
+    public int getCombustivelmaximo() {
+        return combustivelmaximo;
+    }
+
+    public void setCombustivelmaximo(int combustivelmaximo) {
+        this.combustivelmaximo = combustivelmaximo;
     }
 }

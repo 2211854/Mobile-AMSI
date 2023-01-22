@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 
@@ -18,7 +20,7 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
  * create an instance of this fragment.
  */
 public class DetalhesAviaoFragment extends Fragment {
-
+    private int id_voo;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,10 +55,8 @@ public class DetalhesAviaoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        Bundle arguments = getArguments();
+        id_voo = arguments.getInt("ID_VOO");
     }
 
     @Override
@@ -70,8 +70,13 @@ public class DetalhesAviaoFragment extends Fragment {
         btnListaTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ListaTarefasFragment fragment = new ListaTarefasFragment();
+                Bundle arguments = new Bundle();
+                arguments.putInt("ID_VOO", id_voo);
+                fragment.setArguments(arguments);
+
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, new ListaTarefasFragment());
+                fr.replace(R.id.Fl_menu, fragment);
                 fr.commit();
             }
         });

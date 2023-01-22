@@ -48,8 +48,8 @@ public class VooJsonParser {
                 JSONObject tarefa = (JSONObject) response.get(i);
                 int id = tarefa.getInt("id");
                 int id_voo = tarefa.getInt("id_voo");
-                int id_hangar = tarefa.getInt("id_hangar");
-                int id_recurso = tarefa.getInt("id_recurso");
+                String id_hangar = tarefa.getString("id_hangar");
+                String id_recurso = tarefa.getString("id_recurso");
                 String designacao = tarefa.getString("designacao");
                 String estado = tarefa.getString("estado");
                 Tarefa auxTarefa = new Tarefa(id, id_voo, id_hangar, id_recurso, estado, designacao);
@@ -60,7 +60,8 @@ public class VooJsonParser {
         }
         return tarefas;
     }
-    public static Tarefa parserJsonTarefa(String response) {
+
+    /*public static Tarefa parserJsonTarefa(String response) {
         Tarefa auxTarefas = null;
         try {
             JSONObject tarefa = new JSONObject(response);
@@ -75,7 +76,7 @@ public class VooJsonParser {
             e.printStackTrace();
         }
         return auxTarefas;
-    }
+    }*/
 
 
     public static String parserJsonLogin(String response) { // static para nao ter de fazer new

@@ -2,10 +2,10 @@ package pt.ipleiria.estg.dei.mjrammobile.modelo;
 
 public class Tarefa {
 
-    private int id, id_voo,id_hangar,id_recurso;
-    private String estado, designacao;
+    private int id, id_voo;
+    private String estado, designacao,id_hangar,id_recurso;
 
-    public Tarefa(int id, int id_voo, int id_hangar, int id_recurso, String estado, String designacao) {
+    public Tarefa(int id, int id_voo, String id_hangar, String id_recurso, String estado, String designacao) {
         this.id = id;
         this.id_voo = id_voo;
         this.id_hangar = id_hangar;
@@ -30,22 +30,6 @@ public class Tarefa {
         this.id_voo = id_voo;
     }
 
-    public int getId_hangar() {
-        return id_hangar;
-    }
-
-    public void setId_hangar(int id_hangar) {
-        this.id_hangar = id_hangar;
-    }
-
-    public int getId_recurso() {
-        return id_recurso;
-    }
-
-    public void setId_recurso(int id_recurso) {
-        this.id_recurso = id_recurso;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -60,5 +44,21 @@ public class Tarefa {
 
     public void setDesignacao(String designacao) {
         this.designacao = designacao;
+    }
+
+    public String getId_hangar() {
+        return id_hangar;
+    }
+
+    public void setId_hangar(String id_hangar) {
+        this.id_hangar = id_hangar;
+    }
+
+    public String getId_recurso() {
+        return id_recurso;
+    }
+
+    public void setId_recurso(String id_recurso) {
+        this.id_recurso = id_recurso;
     }
 }

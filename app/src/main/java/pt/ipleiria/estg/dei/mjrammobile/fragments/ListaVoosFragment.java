@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -57,10 +59,16 @@ public class ListaVoosFragment extends Fragment implements VoosListener {
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                DetalhesAviaoFragment fragment = new DetalhesAviaoFragment();
+                Bundle arguments = new Bundle();
+                arguments.putInt("ID_VOO", (int) id);
+                fragment.setArguments(arguments);
+
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, new DetalhesAviaoFragment());
+                fr.replace(R.id.Fl_menu,fragment);
                 fr.commit();
+
             }
         });
 
