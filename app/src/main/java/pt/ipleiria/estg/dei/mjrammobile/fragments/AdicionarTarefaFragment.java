@@ -59,8 +59,8 @@ public class AdicionarTarefaFragment extends Fragment implements AdapterView.OnI
         /*adapter = ArrayAdapter.createFromResource
                 (getContext(), hangares, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);*/
+        spinner.setAdapter(adapter);*/
+        spinner.setOnItemSelectedListener(this);
 
 
         Button btnAddTarefa = (Button) v.findViewById(R.id.btnAdicionarTarefa);

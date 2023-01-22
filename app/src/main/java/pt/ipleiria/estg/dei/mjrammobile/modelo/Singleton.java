@@ -11,10 +11,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +27,7 @@ import pt.ipleiria.estg.dei.mjrammobile.listeners.HangarListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.RecursoListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.PerfilListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
 import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
@@ -44,6 +47,7 @@ public class Singleton {
     private TarefasListener tarefasListener;
     private RecursoListener recursosListener;
     private HangarListener hangarListener;
+    private PerfilListener perfilListener;
 
     private ArrayList<Voo> voos;
     private MyBDHelper myBDHelper;
@@ -69,6 +73,9 @@ public class Singleton {
     public void setTarefasListener(TarefasListener tarefasListener) {
         this.tarefasListener = tarefasListener;
     }
+    public void setPerfilListener(PerfilListener perfilListener){
+        this.perfilListener = perfilListener;
+    }
 
     public void setVoosListener(VoosListener voosListener) { // para informar a vista
         this.voosListener = voosListener;
@@ -93,7 +100,7 @@ public class Singleton {
 
     public void loginAPI(final String username, final String password, final Context context){
         if (!VooJsonParser.isConnectionInternet(context)){
-            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
         }else
         {
             StringRequest req = new StringRequest(Request.Method.POST, mUrlAPILogin, new Response.Listener<String>() {
@@ -132,7 +139,7 @@ public class Singleton {
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
 
         if (!VooJsonParser.isConnectionInternet(context)){
-            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
             if (voosListener!=null)
             {
                 voosListener.onRefreshListaVoos(myBDHelper.getAllVooBD());
@@ -165,7 +172,7 @@ public class Singleton {
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "voo/"+ id_voo + "/alltarefa" + mUrlAPIAccessToken + token;
         if (!VooJsonParser.isConnectionInternet(context)){
-            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
             if (tarefasListener !=null)
             {
                 tarefasListener.onRefreshListaTarefas(myBDHelper.getAllTarefaBD());
@@ -194,10 +201,47 @@ public class Singleton {
         }
     }
 
-    public void getAllRecursoAPI(final Context context){
+    public void getAllRecursoAPI(final Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
+    }
 
+
+    public void getPerfilAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "funcionario/"+ sharedPreferences.getString(MainActivity.USERNAME,null) + "/perfil" + mUrlAPIAccessToken + token;
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
+            if (perfilListener !=null)
+            {
+                perfilListener.onRefreshPerfil(myBDHelper.getPerfilBD());
+            }
+        }else
+        {
+            JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    perfil = VooJsonParser.parserJsonPerfil(response);
+                    adicionarPerfilDB(perfil);
+
+                    if (perfilListener!=null)
+                    {
+                        perfilListener.onRefreshPerfil(perfil);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+
+    /*public void adicionarLivroAPI(final Tarefa tarefa , final Context context, String token){
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
@@ -221,6 +265,7 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
+*/
 
     public void getAllHangarAPI(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
@@ -293,7 +338,7 @@ public class Singleton {
 
     //buscar tudo a base dados perfil
     public Perfil getPerfilBD() { // return da copia dos Voos
-        perfil= myBDHelper.getAllPerfilBD();
+        perfil= myBDHelper.getPerfilBD();
         return perfil;
     }
 
@@ -345,7 +390,15 @@ public class Singleton {
         }
     }
     public void adicionarVooBD(Voo v) {
-        myBDHelper.adicionarVooBD(v);}
+        myBDHelper.adicionarVooBD(v);
+    }
+
+
+    //Adicionar base dados Tarefa
+    public void adicionarPerfilDB(Perfil p) {
+        myBDHelper.removerPerfilBD();
+        myBDHelper.adicionarPerfilBD(p);
+    }
 
     //Adicionar base dados Tarefa
     public void adicionarTarefasBD(ArrayList<Tarefa> tarefas) {

@@ -185,6 +185,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return null;
     }
 
+
     public Boolean editarPerfilBD(Perfil perfil)
     {
         //editar um perfil especifico da bd
@@ -198,19 +199,20 @@ public class MyBDHelper extends SQLiteOpenHelper {
 
     }
 
-    public Boolean removerPerfilBD(String email)
+    public Boolean removerPerfilBD()
     {
         //remover um perfil especifico da bd
-        return db.delete(TABLE_PERFIL, EMAIL +"=?", new String[]{email+""})==1;
+        return db.delete(TABLE_PERFIL, null, null)==1;
     }
 
 
 
-    public Perfil getAllPerfilBD(){
+    public Perfil getPerfilBD(){
         Cursor cursor = db.query(TABLE_PERFIL, new String[]{NOMES, TELEMOVEL, EMAIL, NIB,DATAREGISTO}, null, null, null, null, null);
         if(cursor.moveToFirst()){
-            Perfil perfil = new Perfil(cursor.getString(3), cursor.getString(2), cursor.getString(1),cursor.getString(0),cursor.getString(4));
 
+            Perfil perfil = new Perfil(cursor.getString(3), cursor.getString(2), cursor.getString(1),cursor.getString(0),cursor.getString(4));
+            System.out.println(perfil.getNomes());
             cursor.close();
             return perfil;
         }

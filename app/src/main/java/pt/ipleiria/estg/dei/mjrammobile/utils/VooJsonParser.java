@@ -12,6 +12,7 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
     import java.util.ArrayList;
 
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Hangar;
+    import pt.ipleiria.estg.dei.mjrammobile.modelo.Perfil;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Recurso;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
@@ -62,6 +63,24 @@ public class VooJsonParser {
             e.printStackTrace();
         }
         return tarefas;
+    }
+
+    public static Perfil parserJsonPerfil(JSONObject response){
+        JSONObject perfil = (JSONObject) response;
+        System.out.println(perfil);
+        try {
+
+            String nib = perfil.getString("nib");
+            String email = perfil.getString("email");
+            String telemovel = perfil.getString("telemovel");
+            String nomes = perfil.getString("nomes");
+            String dataregisto = perfil.getString("dataregisto");
+            return new Perfil(nib, email, telemovel, nomes, dataregisto);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public static ArrayList<Recurso> parserJsonRecursos(JSONArray response) {
