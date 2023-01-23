@@ -1,6 +1,5 @@
 package pt.ipleiria.estg.dei.mjrammobile.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,7 +24,7 @@ import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
-import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
+import pt.ipleiria.estg.dei.mjrammobile.utils.JsonParser;
 
 
 public class ListaVoosFragment extends Fragment implements VoosListener {
@@ -61,7 +60,7 @@ public class ListaVoosFragment extends Fragment implements VoosListener {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if (!VooJsonParser.isConnectionInternet(getContext())){
+                if (!JsonParser.isConnectionInternet(getContext())){
                     Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                 }else {
                     DetalhesAviaoFragment fragment = new DetalhesAviaoFragment();

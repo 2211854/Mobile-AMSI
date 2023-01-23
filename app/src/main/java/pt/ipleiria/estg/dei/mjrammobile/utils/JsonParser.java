@@ -3,7 +3,6 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
     import android.content.Context;
     import android.net.ConnectivityManager;
     import android.net.NetworkInfo;
-    import android.widget.Toast;
 
     import org.json.JSONArray;
     import org.json.JSONException;
@@ -21,7 +20,7 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
 
 
-public class VooJsonParser {
+public class JsonParser {
 
 
 

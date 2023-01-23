@@ -27,7 +27,7 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefaSingleListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.TarefaSingle;
-import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
+import pt.ipleiria.estg.dei.mjrammobile.utils.JsonParser;
 
 public class DetalhesTarefaFragment extends Fragment implements TarefaSingleListener {
     private int id_tarefa,id_voo;
@@ -83,7 +83,7 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             @Override
             public void onClick(View view) {
 
-                if (!VooJsonParser.isConnectionInternet(getContext())){
+                if (!JsonParser.isConnectionInternet(getContext())){
                     Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                 }else {
                     ListaTarefasFragment fragment = new ListaTarefasFragment();
@@ -148,7 +148,7 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             fabGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!VooJsonParser.isConnectionInternet(getContext())) {
+                    if (!JsonParser.isConnectionInternet(getContext())) {
                         Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                     } else {
                         TarefaSingle.setEstado(spinner.getSelectedItem().toString());
@@ -162,7 +162,7 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             btnEliminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!VooJsonParser.isConnectionInternet(getContext())){
+                    if (!JsonParser.isConnectionInternet(getContext())){
                         Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                     }else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

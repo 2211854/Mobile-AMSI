@@ -14,11 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
-import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.AviaoListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Aviao;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
-import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
+import pt.ipleiria.estg.dei.mjrammobile.utils.JsonParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +81,7 @@ public class DetalhesAviaoFragment extends Fragment implements AviaoListener {
         btnListaTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!VooJsonParser.isConnectionInternet(getContext())){
+                if (!JsonParser.isConnectionInternet(getContext())){
                     Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                 }else {
                     ListaTarefasFragment fragment = new ListaTarefasFragment();

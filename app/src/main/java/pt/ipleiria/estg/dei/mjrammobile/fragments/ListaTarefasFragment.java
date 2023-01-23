@@ -23,12 +23,10 @@ import java.util.ArrayList;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
-import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
-import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
-import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
+import pt.ipleiria.estg.dei.mjrammobile.utils.JsonParser;
 
 public class ListaTarefasFragment extends Fragment implements TarefasListener {
 
@@ -61,7 +59,7 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if (!VooJsonParser.isConnectionInternet(getContext())){
+                if (!JsonParser.isConnectionInternet(getContext())){
                     Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                 }else {
                     DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
@@ -82,7 +80,7 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         FB_Add_tarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!VooJsonParser.isConnectionInternet(getContext())){
+                if (!JsonParser.isConnectionInternet(getContext())){
                     Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
                 }else {
                     AdicionarTarefaFragment fragment = new AdicionarTarefaFragment();

@@ -32,7 +32,7 @@ import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefaSingleListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.PerfilListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
-import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
+import pt.ipleiria.estg.dei.mjrammobile.utils.JsonParser;
 
 
 public class Singleton {
@@ -116,7 +116,7 @@ public class Singleton {
     }
 
     public void loginAPI(final String username, final String password, final Context context){
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
         }else
         {
@@ -124,7 +124,7 @@ public class Singleton {
 
                 @Override
                 public void onResponse(String response) {
-                    String token = VooJsonParser.parserJsonLogin(response);
+                    String token = JsonParser.parserJsonLogin(response);
                     if (loginListener != null)
                         loginListener.onValidateLogin(token, username, context);
                 }
@@ -156,7 +156,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
 
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
             if (voosListener!=null)
             {
@@ -167,7 +167,7 @@ public class Singleton {
             JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIVoos + token, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    voos = VooJsonParser.parserJsonVoos(response);
+                    voos = JsonParser.parserJsonVoos(response);
                     adicionarVoosBD(voos);
 
                     if (voosListener!=null)
@@ -189,7 +189,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "voo/"+ id_voo + "/alltarefa" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
             if (tarefasListener !=null)
             {
@@ -200,7 +200,7 @@ public class Singleton {
             JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    tarefas = VooJsonParser.parserJsonTarefas(response);
+                    tarefas = JsonParser.parserJsonTarefas(response);
 //                    System.out.println(tarefas);
                     adicionarTarefasBD(tarefas);
 
@@ -223,7 +223,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "tarefa/"+ id_tarefa+"/tarefainformation" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
             if (tarefaSingleListener !=null)
             {
@@ -234,7 +234,7 @@ public class Singleton {
             JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    tarefaSingle = VooJsonParser.parserJsonTarefaSingle(response);
+                    tarefaSingle = JsonParser.parserJsonTarefaSingle(response);
                     adicionarTarefaSingleBD(tarefaSingle);
 
                     if (tarefaSingleListener!=null)
@@ -257,7 +257,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "tarefa/"+ tarefaSingle.getId() + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)) {
+        if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
             StringRequest req = new StringRequest(Request.Method.PUT, mUrl, new Response.Listener<String>() {
@@ -291,7 +291,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "tarefa/"+ tarefaSingle.getId() + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
@@ -320,7 +320,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "voo/"+ id_voo + "/aviao" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
             if (aviaoListener !=null)
             {
@@ -331,7 +331,7 @@ public class Singleton {
             JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    aviao = VooJsonParser.parserJsonAviao(response);
+                    aviao = JsonParser.parserJsonAviao(response);
                     //System.out.println(tarefas);
                     adicionarAviaoBD(aviao);
 
@@ -356,7 +356,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "funcionario/"+ sharedPreferences.getString(MainActivity.USERNAME,null) + "/perfil" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
             if (perfilListener !=null)
             {
@@ -371,7 +371,7 @@ public class Singleton {
                 public void onResponse(JSONObject response) {
 
 //                    System.out.println(response);
-                    perfil = VooJsonParser.parserJsonPerfil(response);
+                    perfil = JsonParser.parserJsonPerfil(response);
                     perfil.setId(1);
                     adicionarPerfilDB(perfil);
 
@@ -395,7 +395,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "recurso/all" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
             if (recursosListener !=null)
             {
@@ -406,7 +406,7 @@ public class Singleton {
             JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    recursos = VooJsonParser.parserJsonRecursos(response);
+                    recursos = JsonParser.parserJsonRecursos(response);
                     //System.out.println(tarefas);
                     adicionarRecursosBD(recursos);
 
@@ -429,7 +429,7 @@ public class Singleton {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
         String mUrl = mUrlAPIBase+ "hangar/" + mUrlAPIAccessToken + token;
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
             if (hangarListener !=null)
             {
@@ -440,7 +440,7 @@ public class Singleton {
             JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    hangares = VooJsonParser.parserJsonHangares(response);
+                    hangares = JsonParser.parserJsonHangares(response);
                     //System.out.println(hangares);
                     adicionarHangaresBD(hangares);
 
@@ -460,7 +460,7 @@ public class Singleton {
     }
 
     public void adicionarTarefaAPI(final Tarefa tarefa ,final Context context){
-        if (!VooJsonParser.isConnectionInternet(context)){
+        if (!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
