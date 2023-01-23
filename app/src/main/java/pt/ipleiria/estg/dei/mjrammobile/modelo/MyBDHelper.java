@@ -23,6 +23,13 @@ public class MyBDHelper extends SQLiteOpenHelper {
     private static final String TABLE_AVIAO="aviao";
     private static final String IDA = "ida",COMBUSTIVELATUAL = "combustivelatual",COMBUSTIVELMAXIMO = "combustivelmaximo",OCUPACAOECONOMICA = "ocupacaoeconomica",OCUPACAOPRIMEIRA = "ocupacaoprimeira",OCUPACAOBUSINESS = "ocupacaobusiness";
 
+    private static final String TABLE_HANGAR="hangar";
+
+    private static final String TABLE_RECURSO="recurso";
+    private static final String NOME = "nome",UNIDADEMEDIDA = "unidadeMedida";
+
+
+
 
 
     private final SQLiteDatabase db;
@@ -74,6 +81,19 @@ public class MyBDHelper extends SQLiteOpenHelper {
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTableAviao);
 
+        String sqlCreateTableHangar ="CREATE TABLE " + TABLE_HANGAR+ "(" +
+                ID + " BIGINT  PRIMARY KEY, " +
+                DESIGNACAO + " VARCHAR NOT NULL "+
+                ")";
+        sqLiteDatabase.execSQL(sqlCreateTableHangar);
+
+        String sqlCreateTableRecurso ="CREATE TABLE " + TABLE_RECURSO+ "(" +
+                ID + " BIGINT  PRIMARY KEY, " +
+                NOME + " VARCHAR NOT NULL, "+
+                UNIDADEMEDIDA + " VARCHAR NOT NULL "+
+                ")";
+        sqLiteDatabase.execSQL(sqlCreateTableRecurso);
+
     }
 
     @Override
@@ -89,6 +109,12 @@ public class MyBDHelper extends SQLiteOpenHelper {
 
         String sqlDeleteTableAviao ="DROP TABLE IF EXISTS " + TABLE_AVIAO;
         sqLiteDatabase.execSQL(sqlDeleteTableAviao);
+
+        String sqlDeleteTableHangar ="DROP TABLE IF EXISTS " + TABLE_HANGAR;
+        sqLiteDatabase.execSQL(sqlDeleteTableHangar);
+
+        String sqlDeleteTableRecurso ="DROP TABLE IF EXISTS " + TABLE_RECURSO;
+        sqLiteDatabase.execSQL(sqlDeleteTableRecurso);
 
         onCreate(sqLiteDatabase);
     }
@@ -275,8 +301,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return tarefas;
     }
 
-    //---------------------------------------------------------------AVIAO------------------------------------------------------------
-
     public Aviao adicionarAviaoBD(Aviao aviao)
     {
         //adicionar um aviao a bd
@@ -297,8 +321,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return null;
     }
 
-
-
     public void removerAllAviao()
     {
         //remover todos os aviao da bd
@@ -317,5 +339,80 @@ public class MyBDHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    public void removerAllAviao()
+    {
+        //remover todos os aviao da bd
+        db.delete(TABLE_AVIAO, null, null);
+    }
+
+    public Hangar adicionarHangarBD(Hangar hangar)
+    {
+        //adicionar um hangar a bd
+        ContentValues values = new ContentValues();
+        values.put(ID, hangar.getId());
+        values.put(DESIGNACAO, hangar.getDesignacao());
+        // db.insert retorna -1 em caso de erro ou o id que foi criado
+        int id = (int)db.insert(TABLE_HANGAR, null, values);
+        if(id>-1)
+        {
+            return hangar;
+        }
+        return null;
+    }
+
+    public void removerAllHangar()
+    {
+        //remover todos os hangar da bd
+        db.delete(TABLE_HANGAR, null, null);
+    }
+
+    public ArrayList<Hangar> getAllHangarBD(){
+        ArrayList<Hangar> hangars = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_HANGAR, new String[]{ID,DESIGNACAO}, null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            do {
+                Hangar auxHangar = new Hangar(cursor.getInt(0), cursor.getString(1));
+                hangars.add(auxHangar);
+            }while (cursor.moveToNext());
+            cursor.close();
+        }
+        return hangars;
+    }
+
+    public Recurso adicionarRecursoBD(Recurso recurso)
+    {
+        //adicionar um hangar a bd
+        ContentValues values = new ContentValues();
+        values.put(ID, recurso.getId());
+        values.put(NOME, recurso.getNome());
+        values.put(UNIDADEMEDIDA, recurso.getUnidadeMedida());
+        // db.insert retorna -1 em caso de erro ou o id que foi criado
+        int id = (int)db.insert(TABLE_RECURSO, null, values);
+        if(id>-1)
+        {
+            return recurso;
+        }
+        return null;
+    }
+
+    public void removerAllRecurso()
+    {
+        //remover todos os hangar da bd
+        db.delete(TABLE_RECURSO, null, null);
+    }
+
+    public ArrayList<Recurso> getAllRecursoBD(){
+        ArrayList<Recurso> recursos = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_RECURSO, new String[]{ID,NOME,UNIDADEMEDIDA}, null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            do {
+                Recurso auxRecurso = new Recurso(cursor.getInt(0), cursor.getString(1),cursor.getString(2));
+                recursos.add(auxRecurso);
+            }while (cursor.moveToNext());
+            cursor.close();
+        }
+        return recursos;
+    }
 }
 

@@ -153,8 +153,8 @@ public class VooJsonParser {
                 JSONObject hangar = (JSONObject) response.get(i);
                 int id = hangar.getInt("id");
                 String designacao = hangar.getString("designacao");
-                Hangar auxHangares = new Hangar(id, designacao);
-                hangares.add(auxHangares);
+                Hangar auxHangar = new Hangar(id, designacao);
+                hangares.add(auxHangar);
             }
         } catch (JSONException e) {
             e.printStackTrace();

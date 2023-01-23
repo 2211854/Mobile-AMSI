@@ -47,15 +47,14 @@ public class ListaTarefasAdaptador extends BaseAdapter {
             view = inflater.inflate(R.layout.activity_custom_lista_tarefas, null);
 
         //envia para as textview as variaveis
-        ViewHolderListaTarefas viewHolder = (ViewHolderListaTarefas) view.getTag();
+        ListaTarefasAdaptador.ViewHolderListaTarefas viewHolder = (ListaTarefasAdaptador.ViewHolderListaTarefas) view.getTag();
         if(viewHolder == null)
         {
-            viewHolder = new ViewHolderListaTarefas(view);
+            viewHolder = new ListaTarefasAdaptador.ViewHolderListaTarefas(view);
             view.setTag(viewHolder);
         }
 
         viewHolder.update(tarefas.get(i));
-
         return view;
     }
 
@@ -71,7 +70,6 @@ public class ListaTarefasAdaptador extends BaseAdapter {
             System.out.println("tarefa");
             tv_designacao.setText(tarefas.getDesignacao());
             tv_estados.setText(tarefas.getEstado());
-
         }
     }
 }
