@@ -38,11 +38,14 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         id_voo = arguments.getInt("ID_VOO");
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -54,8 +57,6 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
 
         //Envia para a listview tudo
         listview = v.findViewById(R.id.lvTarefas);
-        /*ListaTarefasAdaptador listaTarefasAdaptador = new ListaTarefasAdaptador(getContext(), tarefas);
-        listview.setAdapter(listaTarefasAdaptador);*/
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

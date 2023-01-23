@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -201,12 +202,6 @@ public class Singleton {
         }
     }
 
-    public void getAllRecursoAPI(final Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
-        token = sharedPreferences.getString(MainActivity.TOKEN, null);
-    }
-
-
     public void getPerfilAPI(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
@@ -249,15 +244,24 @@ public class Singleton {
     }
 
 
-    /*public void adicionarLivroAPI(final Tarefa tarefa , final Context context, String token){
+    public void getAllRecursoAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "recurso/all" + mUrlAPIAccessToken + token;
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (recursosListener !=null)
+            {
+                recursosListener.onRefreshListaRecurso(myBDHelper.getAllRecursoBD());
+            }
         }else
         {
-            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIBase+ "recurso/all" + mUrlAPIAccessToken + token, null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     recursos = VooJsonParser.parserJsonRecursos(response);
+                    //System.out.println(tarefas);
+                    adicionarRecursosBD(recursos);
 
                     if (recursosListener!=null)
                     {
@@ -273,20 +277,25 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
-*/
 
     public void getAllHangarAPI(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
-
+        String mUrl = mUrlAPIBase+ "hangar/" + mUrlAPIAccessToken + token;
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (hangarListener !=null)
+            {
+                hangarListener.onRefreshListaHangar(myBDHelper.getAllHangarBD());
+            }
         }else
         {
-            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrlAPIBase+ "hangar/" + mUrlAPIAccessToken + token, null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest req=new JsonArrayRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     hangares = VooJsonParser.parserJsonHangares(response);
+                    //System.out.println(hangares);
+                    adicionarHangaresBD(hangares);
 
                     if (hangarListener!=null)
                     {
@@ -303,12 +312,12 @@ public class Singleton {
         }
     }
 
-    public void adicionarTarefaAPI(final Tarefa tarefa , int id_voo,final Context context){
+    public void adicionarTarefaAPI(final Tarefa tarefa ,final Context context){
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
-            String mUrl = mUrlAPIBase+ "tarefa/"+ id_voo + "/create" + mUrlAPIAccessToken + token;
+            /*String mUrl = mUrlAPIBase+ "tarefa/"+ mUrlAPIAccessToken + token;
             StringRequest req = new StringRequest(Request.Method.POST, mUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -324,6 +333,7 @@ public class Singleton {
                 @Override
                 public Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
+                    params.put("token", token);
                     params.put("id_voo", tarefa.getId_voo()+"");// Transformar em string
                     params.put("id_hangar", tarefa.getId_hangar()+"");
                     params.put("id_recurso", tarefa.getId_recurso()+"");
@@ -332,8 +342,44 @@ public class Singleton {
                     params.put("quantidade", tarefa.getQuantidade()+"");
                     return params;
                 }
-            };
-            volleyQueue.add(req);
+            };*/
+            try {
+                JSONObject params = new JSONObject();
+                params.put("token", token);
+                params.put("id_voo", tarefa.getId_voo()+"");// Transformar em string
+                params.put("id_hangar", tarefa.getId_hangar()+"");
+                params.put("id_recurso", tarefa.getId_recurso()+"");
+                params.put("designacao", tarefa.getDesignacao());
+                params.put("estado", tarefa.getEstado());
+                params.put("id_funcionario_registo",4);
+                params.put("quantidade", tarefa.getQuantidade());
+                System.out.println(params);
+                // Building a request
+                JsonObjectRequest request = new JsonObjectRequest(
+                        Request.Method.POST,
+                        // Using a variable for the domain is great for testing
+                        mUrlAPIBase+ "tarefa"+ mUrlAPIAccessToken + token,
+                        params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Handle the response
+                                //adicionarTarefaBD(VooJsonParser.parserJsonTarefa(response.toString()));
+                            }
+                        },
+
+                        new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Handle the error
+                                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                volleyQueue.add(request);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -342,6 +388,15 @@ public class Singleton {
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
         voos= myBDHelper.getAllVooBD();
         return new ArrayList(voos);
+    }
+
+    public ArrayList<Hangar> getHangaresBD() { // return da copia dos Hangares
+        hangares= myBDHelper.getAllHangarBD();
+        return new ArrayList(hangares);
+    }
+    public ArrayList<Recurso> getRecursosBD() { // return da copia dos Hangares
+        recursos= myBDHelper.getAllRecursoBD();
+        return new ArrayList(recursos);
     }
 
     //buscar tudo a base dados perfil
@@ -364,9 +419,9 @@ public class Singleton {
         return new ArrayList(tarefas);
     }
 
-    public Tarefa getTarefa(int idTarefa){
+    public Tarefa getTarefa(int idVoo){
         for (Tarefa T : tarefas){
-            if(T.getId() == idTarefa)
+            if(T.getId_voo() == idVoo)
                 return T;
         }
         return null;
@@ -408,6 +463,26 @@ public class Singleton {
         myBDHelper.removerPerfilBD();
         myBDHelper.adicionarPerfilBD(p);
     }
+
+    public void adicionarHangaresBD(ArrayList<Hangar> hangares) {
+        myBDHelper.removerAllHangar();
+        for(Hangar H:hangares)
+        {
+            adicionarHangarBD(H);
+        }
+    }
+    public void adicionarHangarBD(Hangar H) {
+        myBDHelper.adicionarHangarBD(H);}
+
+    public void adicionarRecursosBD(ArrayList<Recurso> recursos) {
+        myBDHelper.removerAllRecurso();
+        for(Recurso R:recursos)
+        {
+            adicionarRecursoBD(R);
+        }
+    }
+    public void adicionarRecursoBD(Recurso R) {
+        myBDHelper.adicionarRecursoBD(R);}
 
     //Adicionar base dados Tarefa
     public void adicionarTarefasBD(ArrayList<Tarefa> tarefas) {
