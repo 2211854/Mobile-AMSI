@@ -361,32 +361,6 @@ public class Singleton {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
         {
-            /*String mUrl = mUrlAPIBase+ "tarefa/"+ mUrlAPIAccessToken + token;
-            StringRequest req = new StringRequest(Request.Method.POST, mUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    adicionarTarefaBD(VooJsonParser.parserJsonTarefa(response));
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }){
-                @Override
-                public Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("token", token);
-                    params.put("id_voo", tarefa.getId_voo()+"");// Transformar em string
-                    params.put("id_hangar", tarefa.getId_hangar()+"");
-                    params.put("id_recurso", tarefa.getId_recurso()+"");
-                    params.put("designacao", tarefa.getDesignacao());
-                    params.put("estado", tarefa.getEstado());
-                    params.put("quantidade", tarefa.getQuantidade()+"");
-                    return params;
-                }
-            };*/
             try {
                 JSONObject params = new JSONObject();
                 params.put("token", token);
@@ -425,7 +399,25 @@ public class Singleton {
                 e.printStackTrace();
             }
         }
-
+    }
+    public void removerTarefaAPI(final Tarefa tarefa, final Context context){
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            StringRequest req = new StringRequest(Request.Method.DELETE, mUrlAPIBase+ "tarefa/"+tarefa.getId()+ mUrlAPIAccessToken + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    removerTarefaBD(tarefa.getId());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
     }
 
     //buscar tudo a base dados voo

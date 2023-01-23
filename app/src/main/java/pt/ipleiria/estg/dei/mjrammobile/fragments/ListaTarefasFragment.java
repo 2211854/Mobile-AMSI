@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
     private View v;
     private ListView listview;
     ArrayList<Tarefa> tarefas;
+    private TextInputEditText ET_search;
     private TextView tv_titulo;
     private TextInputLayout til_searchFilter;
 
@@ -43,10 +45,6 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         id_voo = arguments.getInt("ID_VOO");
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +63,7 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
                 fr.replace(R.id.Fl_menu, new DetalhesTarefaFragment());
                 fr.commit();
             }});
-
+        ET_search = v.findViewById(R.id.ET_search);
         //Listener para o enviar para outro fragment
         FloatingActionButton FB_Add_tarefa = (FloatingActionButton) v.findViewById(R.id.FB_Add_tarefas);
         FB_Add_tarefa.setOnClickListener(new View.OnClickListener() {
