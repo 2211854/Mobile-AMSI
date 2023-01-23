@@ -65,17 +65,11 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
         tv_data_final = v.findViewById(R.id.tv_tarefa_final);
         fabGuardar=v.findViewById(R.id.FB_alterar_tarefas);
 
-
-
-        estados = new ArrayList<String>();
-        estados.add("planeada");
-        estados.add("concluido");
-        estados.add("cancelado");
-
         spinner = v.findViewById(R.id.sp_tarefa_estado);
 
-        adapter= new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, estados);
-        spinner.setAdapter(adapter);
+        adapter= new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item);
+
+
 
 
 
@@ -116,7 +110,22 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             tv_data_inicio.setText(TarefaSingle.getData_inicio());
             tv_data_final.setText(TarefaSingle.getData_final());
 
+            estados = new ArrayList<String>();
+
+            if(TarefaSingle.getEstado().equals("concluido")){
+                adapter.add("concluido");
+            }else if(TarefaSingle.getEstado().equals("cancelado")){
+                adapter.add("cancelado");
+            }else{
+                adapter.add("planeada");
+                adapter.add("concluido");
+                adapter.add("cancelado");
+            }
+
+            spinner.setAdapter(adapter);
+
             spinner.setSelection(adapter.getPosition(TarefaSingle.getEstado()));
+
 
 
 
@@ -133,6 +142,7 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             fabGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    System.out.println(spinner.getSelectedItem().toString());
                     TarefaSingle.setEstado(spinner.getSelectedItem().toString());
                     Singleton.getInstance(getContext()).editarTarefaSingleAPI(TarefaSingle, getContext());
                 }

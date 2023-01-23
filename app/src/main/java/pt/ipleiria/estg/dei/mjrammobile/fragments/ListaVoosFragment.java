@@ -25,6 +25,7 @@ import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaVooAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
+import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 
 public class ListaVoosFragment extends Fragment implements VoosListener {
@@ -60,14 +61,18 @@ public class ListaVoosFragment extends Fragment implements VoosListener {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                DetalhesAviaoFragment fragment = new DetalhesAviaoFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt("ID_VOO", (int) id);
-                fragment.setArguments(arguments);
+                if (!VooJsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                }else {
+                    DetalhesAviaoFragment fragment = new DetalhesAviaoFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("ID_VOO", (int) id);
+                    fragment.setArguments(arguments);
 
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu,fragment);
-                fr.commit();
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.Fl_menu, fragment);
+                    fr.commit();
+                }
 
             }
         });

@@ -12,7 +12,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lista_tarefas">Lista Tarefas</string>
     <string name="adicionar_tarefa">Adicionar Tarefa</string>
-    <string name="designacao">Designação:</string>
+    <string name="designacao">         Designação:</string>
     <string name="hangar">Hangar:</string>
     <string name="recurso">Recurso:</string>
     <string name="estado">Estado:</string>

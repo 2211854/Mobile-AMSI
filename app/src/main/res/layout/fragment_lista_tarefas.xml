@@ -51,34 +51,34 @@
                 android:layout_marginRight="1dp"/>
 
         </TableRow>
-        <TableRow android:background="@drawable/table_detalhes_meio"
-            android:clickable="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+<!--        <TableRow android:background="@drawable/table_detalhes_meio"-->
+<!--            android:clickable="false"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center">-->
 
-            <CheckBox
-                android:id="@+id/cb_concluido"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="Concluido" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/cb_concluido"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="onRadioButtonClicked"-->
+<!--                android:text="Concluido" />-->
 
-            <CheckBox
-                android:id="@+id/cb_Planeada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="Planeada" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/cb_Planeada"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="onRadioButtonClicked"-->
+<!--                android:text="Planeada" />-->
 
-            <CheckBox
-                android:id="@+id/cb_cancelado"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
-                android:text="Cancelado" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/cb_cancelado"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:onClick="onRadioButtonClicked"-->
+<!--                android:text="Cancelado" />-->
 
-        </TableRow>
+<!--        </TableRow>-->
         <ListView
             android:id="@+id/lvTarefas"
             android:layout_width="match_parent"

@@ -133,6 +133,7 @@ public class Singleton {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("LOGIN: Error" + error.getMessage());
+                    Toast.makeText(context, "Erro a efetuar o login!", Toast.LENGTH_LONG).show();
                 }
             }){
                 @Override
@@ -265,13 +266,14 @@ public class Singleton {
                     editarTarefaSingleDB(tarefaSingle);
                     if (tarefaSingleListener != null) {
                         tarefaSingleListener.onRefreshTarefaSingle(tarefaSingle);
+                        Toast.makeText(context, "Tarefa editada", Toast.LENGTH_LONG).show();
                     }
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context.getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }) {
                 @Override

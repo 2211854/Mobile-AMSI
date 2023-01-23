@@ -109,7 +109,7 @@
                 android:textSize="20sp">
             </TextView>
         </TableRow>
-        <TableRow android:background="@drawable/table_detalhes_meio">
+        <TableRow android:background="@drawable/table_detalhes_baixo">
             <ImageView
                 android:id="@+id/imgEconomica"
                 android:layout_width="40dp"
@@ -138,35 +138,35 @@
                 android:textSize="20sp">
             </TextView>
         </TableRow>
-        <TableRow android:background="@drawable/table_detalhes_baixo">
-            <ImageView
-                android:id="@+id/imgPremium"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/economica_premium"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:gravity="left"
-                android:padding="8sp"
-                android:text="Premium"
-                android:textColor="@color/black"
-                android:textSize="20sp">
-            </TextView>
-            <TextView
-                android:id="@+id/tv_Premium"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:padding="8sp"
-                android:text="40"
-                android:textColor="@color/black"
-                android:textSize="20sp">
-            </TextView>
-        </TableRow>
+<!--        <TableRow android:background="@drawable/table_detalhes_baixo">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/imgPremium"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/economica_premium"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="4"-->
+<!--                android:gravity="left"-->
+<!--                android:padding="8sp"-->
+<!--                android:text="Premium"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20sp">-->
+<!--            </TextView>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_Premium"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="3"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="8sp"-->
+<!--                android:text="40"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20sp">-->
+<!--            </TextView>-->
+<!--        </TableRow>-->
 
         <Space
             android:layout_width="match_parent"

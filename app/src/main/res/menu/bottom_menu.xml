@@ -7,6 +7,6 @@
         />
     <item
         android:id="@+id/avioes"
-        android:title="Aviões"
+        android:title="Voos"
         android:icon="@drawable/ic_aviao_menu"/>
 </menu>
