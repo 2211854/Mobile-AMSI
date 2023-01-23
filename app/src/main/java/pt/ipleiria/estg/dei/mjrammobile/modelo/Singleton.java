@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import pt.ipleiria.estg.dei.mjrammobile.MainActivity;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.AviaoListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.HangarListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.RecursoListener;
@@ -45,18 +46,19 @@ public class Singleton {
     private LoginListener loginListener;
     private VoosListener voosListener;
     private TarefasListener tarefasListener;
+    private AviaoListener aviaoListener;
     private RecursoListener recursosListener;
     private HangarListener hangarListener;
     private PerfilListener perfilListener;
 
     private ArrayList<Voo> voos;
     private MyBDHelper myBDHelper;
-    private ArrayList<Aviao> aviaos;
     private ArrayList<Tarefa> tarefas;
-    private ArrayList<Ocupacao> ocupacoes;
+    //private ArrayList<Ocupacao> ocupacoes;
     private ArrayList<Recurso> recursos;
     private ArrayList<Hangar> hangares;
     private Perfil perfil;
+    private Aviao aviao;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -77,12 +79,18 @@ public class Singleton {
         this.perfilListener = perfilListener;
     }
 
+    public void setAviaoListener(AviaoListener aviaoListener) {
+        this.aviaoListener = aviaoListener;
+    }
+
     public void setVoosListener(VoosListener voosListener) { // para informar a vista
         this.voosListener = voosListener;
     }
+
     public void setRecursosListener(RecursoListener recursosListener) { // para informar a vista
         this.recursosListener = recursosListener;
     }
+
     public void setHangaresListener(HangarListener hangaresListener) { // para informar a vista
         this.hangarListener = hangaresListener;
     }
@@ -91,9 +99,9 @@ public class Singleton {
 
         voos = new ArrayList<>();
         myBDHelper = new MyBDHelper(context);
-        aviaos = new ArrayList<>();
+        //aviaos = new ArrayList<>();
         tarefas = new ArrayList<>();
-        ocupacoes = new ArrayList<>();
+        //ocupacoes = new ArrayList<>();
         recursos = new ArrayList<>();
         hangares = new ArrayList<>();
     }
@@ -201,7 +209,42 @@ public class Singleton {
         }
     }
 
-    public void getAllRecursoAPI(final Context context) {
+    public void getAviaoAPI(int id_voo, final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "voo/"+ id_voo + "/aviao" + mUrlAPIAccessToken + token;
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (aviaoListener !=null)
+            {
+                aviaoListener.onRefreshAviao(myBDHelper.getAllAviaoBD());
+            }
+        }else
+        {
+            JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    aviao = VooJsonParser.parserJsonAviao(response);
+                    //System.out.println(tarefas);
+                    adicionarAviaoBD(aviao);
+
+                    if (aviaoListener!=null)
+                    {
+                        aviaoListener.onRefreshAviao(aviao);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+
+    public void getAllRecursoAPI(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
     }
@@ -372,22 +415,10 @@ public class Singleton {
         return null;
     }
 
-    //buscar tudo a base dados Aviao
-    public ArrayList<Aviao> getAviaosBD() { // return da copia dos Aviao
-        for (Aviao aviao: myBDHelper.getAllAviaoBD()){
-            aviao.setOcupacoes(myBDHelper.getOcupacaoDB(aviao.getId()));
-            aviaos.add(aviao);
 
-        }
-        return new ArrayList(aviaos);
-    }
-
-    public Aviao getAviao(int idAviao){
-        for (Aviao A : aviaos){
-            if(A.getId() == idAviao)
-                return A;
-        }
-        return null;
+    public Aviao getAviao(){
+        aviao= myBDHelper.getAllAviaoBD();
+        return aviao;
     }
 
     //Adicionar base dados voo

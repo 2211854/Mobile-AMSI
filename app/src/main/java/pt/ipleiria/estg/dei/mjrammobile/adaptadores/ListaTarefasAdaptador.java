@@ -68,6 +68,7 @@ public class ListaTarefasAdaptador extends BaseAdapter {
         }
 
         public void update(Tarefa tarefas){
+            System.out.println("tarefa");
             tv_designacao.setText(tarefas.getDesignacao());
             tv_estados.setText(tarefas.getEstado());
 

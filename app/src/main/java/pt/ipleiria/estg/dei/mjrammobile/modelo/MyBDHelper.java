@@ -20,11 +20,8 @@ public class MyBDHelper extends SQLiteOpenHelper {
     private static final String TABLE_TAREFA="tarefa";
     private static final String ID_VOO="id_voo",ID_HANGAR="id_hangar",ID_RECURSO="id_recurso", QUANTIDADE = "quantidade";
 
-    private static final String TABLE_OCUPACAO ="ocupacao";
-    private static final String CLASSE ="classe", OCUPACAO = "ocupacao";
-
     private static final String TABLE_AVIAO="aviao";
-    private static final String COMBUSTIVELATUAL = "combustivelatual",COMBUSTIVELMAXIMO = "combustivelmaximo";
+    private static final String IDA = "ida",COMBUSTIVELATUAL = "combustivelatual",COMBUSTIVELMAXIMO = "combustivelmaximo",OCUPACAOECONOMICA = "ocupacaoeconomica",OCUPACAOPRIMEIRA = "ocupacaoprimeira",OCUPACAOBUSINESS = "ocupacaobusiness";
 
 
 
@@ -67,17 +64,13 @@ public class MyBDHelper extends SQLiteOpenHelper {
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTableTarefa);
 
-        String sqlCreateTableOcupacao ="CREATE TABLE " + TABLE_OCUPACAO + "(" +
-                OCUPACAO + " INT NOT NULL, " +
-                ID_AVIAO + " BIGINT PRIMARY KEY, " +
-                CLASSE + " VARCHAR NOT NULL" +
-                ")";
-        sqLiteDatabase.execSQL(sqlCreateTableOcupacao);
-
         String sqlCreateTableAviao ="CREATE TABLE " + TABLE_AVIAO+ "(" +
                 ID + " BIGINT  PRIMARY KEY, " +
                 COMBUSTIVELATUAL + " INT NOT NULL, " +
-                COMBUSTIVELMAXIMO + " INT NOT NULL " +
+                COMBUSTIVELMAXIMO + " INT NOT NULL, " +
+                OCUPACAOECONOMICA + " INT NOT NULL, " +
+                OCUPACAOPRIMEIRA + " INT NOT NULL, " +
+                OCUPACAOBUSINESS + " INT NOT NULL " +
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTableAviao);
 
@@ -94,15 +87,13 @@ public class MyBDHelper extends SQLiteOpenHelper {
         String sqlDeleteTableTarefa ="DROP TABLE IF EXISTS " + TABLE_TAREFA;
         sqLiteDatabase.execSQL(sqlDeleteTableTarefa);
 
-        String sqlDeleteTableOcupacao ="DROP TABLE IF EXISTS " + TABLE_OCUPACAO;
-        sqLiteDatabase.execSQL(sqlDeleteTableOcupacao);
-
         String sqlDeleteTableAviao ="DROP TABLE IF EXISTS " + TABLE_AVIAO;
         sqLiteDatabase.execSQL(sqlDeleteTableAviao);
 
         onCreate(sqLiteDatabase);
     }
 
+    //---------------------------------------------------------------VOO------------------------------------------------------------
     public Voo adicionarVooBD(Voo voo)
     {
         //adicionar um voo a bd
@@ -168,6 +159,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return voos;
     }
 
+    //---------------------------------------------------------------PERFIL------------------------------------------------------------
     public Perfil adicionarPerfilBD(Perfil perfil)
     {
 
@@ -223,6 +215,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
         }
     }
 
+    //---------------------------------------------------------------TAREFA------------------------------------------------------------
     public Tarefa adicionarTarefaBD(Tarefa tarefa)
     {
         //adicionar um tarefa a bd
@@ -282,63 +275,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
         return tarefas;
     }
 
-    public Ocupacao adicionarOcupacaoBD(Ocupacao ocupacao)
-    {
-        //adicionar o ocupacao a bd
-        ContentValues values = new ContentValues();
-        values.put(OCUPACAO, ocupacao.getOcupacao());
-        values.put(CLASSE, ocupacao.getClasse());
-        values.put(ID_AVIAO, ocupacao.getId_aviao());
-        // db.insert retorna -1 em caso de erro ou o id que foi criado
-        int id = (int)db.insert(TABLE_OCUPACAO, null, values);
-        if(id>-1)
-        {
-            return ocupacao;
-        }
-        return null;
-    }
-
-
-
-    public void removerAllOcupacao()
-    {
-        //remover todos os ocupacoes da bd
-        db.delete(TABLE_OCUPACAO, null, null);
-    }
-
-
-    public Ocupacao getAllOcupacaoBD(){
-        Cursor cursor = db.query(TABLE_OCUPACAO, new String[]{ OCUPACAO, CLASSE, ID_AVIAO}, null, null, null, null, null);
-        if(cursor.moveToFirst()){
-            Ocupacao ocupacao = new Ocupacao(cursor.getInt(2), cursor.getInt(0), cursor.getString(1));
-
-            cursor.close();
-            return ocupacao;
-        }
-        else{
-            return null;
-        }
-    }
-
-    public  ArrayList<Ocupacao> getOcupacaoDB(int id_aviao){
-        ArrayList<Ocupacao> ocupacoes = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_OCUPACAO, new String[]{ OCUPACAO, CLASSE, ID_AVIAO}, null, null, null, ID_AVIAO+"="+ id_aviao, CLASSE);
-        if(cursor.moveToFirst()){
-            do {
-
-                Ocupacao auxOcupacao = new Ocupacao(cursor.getInt(2), cursor.getInt(0), cursor.getString(1));
-
-
-                ocupacoes.add(auxOcupacao);
-            }while (cursor.moveToNext());
-
-            cursor.close();
-            return ocupacoes;
-        }
-        else{
-            return null;
-        }
-    }
+    //---------------------------------------------------------------AVIAO------------------------------------------------------------
 
     public Aviao adicionarAviaoBD(Aviao aviao)
     {
@@ -347,10 +284,14 @@ public class MyBDHelper extends SQLiteOpenHelper {
         values.put(ID, aviao.getId());
         values.put(COMBUSTIVELATUAL, aviao.getCombustivelatual());
         values.put(COMBUSTIVELMAXIMO, aviao.getCombustivelatual());
+        values.put(OCUPACAOECONOMICA, aviao.getCombustivelatual());
+        values.put(OCUPACAOBUSINESS, aviao.getCombustivelatual());
+        values.put(OCUPACAOPRIMEIRA, aviao.getCombustivelatual());
         // db.insert retorna -1 em caso de erro ou o id que foi criado
         int id = (int)db.insert(TABLE_AVIAO, null, values);
         if(id>-1)
         {
+            aviao.setId(aviao.getId());
             return aviao;
         }
         return null;
@@ -364,19 +305,16 @@ public class MyBDHelper extends SQLiteOpenHelper {
         db.delete(TABLE_AVIAO, null, null);
     }
 
-    public ArrayList<Aviao> getAllAviaoBD(){
-        ArrayList<Aviao> aviaos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_AVIAO, new String[]{ID,COMBUSTIVELATUAL,COMBUSTIVELMAXIMO}, null, null, null, null, null);
+    public Aviao getAllAviaoBD(){
+        Cursor cursor = db.query(TABLE_AVIAO, new String[]{ID,COMBUSTIVELATUAL,COMBUSTIVELMAXIMO,OCUPACAOECONOMICA,OCUPACAOPRIMEIRA,OCUPACAOBUSINESS}, null, null, null, null, null);
         if(cursor.moveToFirst()){
-            do {
-
-                Aviao auxAviao = new Aviao(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), new ArrayList<>()) ;
-
-                aviaos.add(auxAviao);
-            }while (cursor.moveToNext());
+                Aviao auxAviao = new Aviao(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5)) ;
             cursor.close();
+            return auxAviao;
+
+        }else{
+            return null;
         }
-        return aviaos;
     }
 
 }

@@ -10,17 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import pt.ipleiria.estg.dei.mjrammobile.R;
+import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.AviaoListener;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Aviao;
+import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DetalhesAviaoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalhesAviaoFragment extends Fragment {
+public class DetalhesAviaoFragment extends Fragment implements AviaoListener {
     private int id_voo;
+    private TextView tv_combustivel, tv_first_Classe, tv_Business, tv_Economica;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +71,11 @@ public class DetalhesAviaoFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detalhes_aviao, container, false);
 
+        tv_combustivel = v.findViewById(R.id.tv_combustivel);
+        tv_first_Classe = v.findViewById(R.id.tv_first_classe);
+        tv_Business = v.findViewById(R.id.tv_Business);
+        tv_Economica = v.findViewById(R.id.tv_Economica);
+
         Button btnListaTarefa = (Button)v.findViewById(R.id.btnListaTarefas);
 
         btnListaTarefa.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +92,20 @@ public class DetalhesAviaoFragment extends Fragment {
             }
         });
 
+        Singleton.getInstance(getContext()).setAviaoListener(this);
+        Singleton.getInstance(getContext()).getAviaoAPI(id_voo, getContext());
+
         return v;
+    }
+
+    @Override
+    public void onRefreshAviao(Aviao aviao) {
+        if(aviao != null){
+            float percentagem = 100*aviao.getCombustivelatual()/aviao.getCombustivelmaximo();
+            tv_combustivel.setText(aviao.getCombustivelatual() + "(" + percentagem + "% )");
+            tv_first_Classe.setText(aviao.getOcupacaoprimeira() + " ");
+            tv_Business.setText(aviao.getOcupacaobusiness() + " ");
+            tv_Economica.setText(aviao.getOcupacaoeconomica() + " ");
+        }
     }
 }

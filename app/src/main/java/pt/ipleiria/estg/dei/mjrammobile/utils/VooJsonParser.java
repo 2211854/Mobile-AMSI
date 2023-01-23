@@ -11,7 +11,9 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
 
     import java.util.ArrayList;
 
+    import pt.ipleiria.estg.dei.mjrammobile.modelo.Aviao;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Hangar;
+
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Perfil;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Recurso;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
@@ -65,6 +67,7 @@ public class VooJsonParser {
         return tarefas;
     }
 
+
     public static Perfil parserJsonPerfil(JSONObject response){
         JSONObject perfil = (JSONObject) response;
         try {
@@ -80,6 +83,51 @@ public class VooJsonParser {
         }
 
     }
+
+
+    public static Aviao parserJsonAviao(JSONObject response) {
+        Aviao aviao = null;
+        try {
+                int id = response.getInt("id");
+                int combustivelatual = response.getInt("combustivelatual");
+                int combustivelmaximo = response.getInt("combustivelmaximo");
+                int ocupacaoeconomica = response.getInt("ocupacaoEconomica");
+                int ocupacaoprimeira = response.getInt("ocupacaoPrimeira");
+                int ocupacaobusiness = response.getInt("ocupacaoBusiness");
+                aviao = new Aviao(id, combustivelatual, combustivelmaximo, ocupacaoeconomica, ocupacaoprimeira, ocupacaobusiness);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return aviao;
+    }
+
+    /*public static ArrayList<Ocupacao> parserJsonOcupacoes(JSONObject response) {
+        ArrayList<Ocupacao> ocupacoes = new ArrayList<>();
+        int ocupacao;
+        String classe;
+        Ocupacao auxOcupacao;
+        try {
+            ocupacao = response.getInt("Economica");
+            classe = response.getString("classe");
+            auxOcupacao = new Ocupacao(1, ocupacao,"Economica");
+            ocupacoes.add(auxOcupacao);
+
+            ocupacao = response.getInt("Primeira");
+            classe = response.getString("classe");
+            auxOcupacao = new Ocupacao(2, ocupacao,"Primeira");
+            ocupacoes.add(auxOcupacao);
+
+            ocupacao = response.getInt("Business");
+            classe = response.getString("classe");
+            auxOcupacao = new Ocupacao(2, ocupacao,"Business");
+            ocupacoes.add(auxOcupacao);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return ocupacoes;
+    }*/
+
 
     public static ArrayList<Recurso> parserJsonRecursos(JSONArray response) {
         ArrayList<Recurso> recursos = new ArrayList<>();
@@ -131,6 +179,9 @@ public class VooJsonParser {
         }
         return auxTarefas;
     }
+
+
+
 
 
     public static String parserJsonLogin(String response) { // static para nao ter de fazer new
