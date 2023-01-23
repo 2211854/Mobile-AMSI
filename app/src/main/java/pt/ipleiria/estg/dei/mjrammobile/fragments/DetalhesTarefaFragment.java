@@ -122,8 +122,8 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
 
             username = sharedPreferences.getString(MainActivity.USERNAME, null);
             username2 = TarefaSingle.getUsername_funcionario_registo();
-            System.out.println(username);
-            System.out.println(username2);
+//            System.out.println(username);
+//            System.out.println(username2);
             if(username2.equals(username)) {
                 btnEliminar.setVisibility(View.VISIBLE);
             }else {

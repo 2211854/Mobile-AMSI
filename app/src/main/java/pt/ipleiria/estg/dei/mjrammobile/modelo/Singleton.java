@@ -200,7 +200,7 @@ public class Singleton {
                 @Override
                 public void onResponse(JSONArray response) {
                     tarefas = VooJsonParser.parserJsonTarefas(response);
-                    //System.out.println(tarefas);
+//                    System.out.println(tarefas);
                     adicionarTarefasBD(tarefas);
 
                     if (tarefasListener!=null)
@@ -349,6 +349,7 @@ public class Singleton {
     }
 
 
+
     public void getPerfilAPI(final Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MainActivity.TOKEN, null);
@@ -360,9 +361,6 @@ public class Singleton {
                 perfilListener.onRefreshPerfil(myBDHelper.getPerfilBD());
 
             }
-            else{
-                System.out.println("ggeeg");
-            }
         }else
         {
 
@@ -370,7 +368,7 @@ public class Singleton {
                 @Override
                 public void onResponse(JSONObject response) {
 
-                    System.out.println(response);
+//                    System.out.println(response);
                     perfil = VooJsonParser.parserJsonPerfil(response);
                     perfil.setId(1);
                     adicionarPerfilDB(perfil);
@@ -474,7 +472,7 @@ public class Singleton {
                 params.put("estado", tarefa.getEstado());
                 params.put("id_funcionario_registo",4);
                 params.put("quantidade", tarefa.getQuantidade());
-                System.out.println(params);
+//                System.out.println(params);
                 // Building a request
                 JsonObjectRequest request = new JsonObjectRequest(
                         Request.Method.POST,

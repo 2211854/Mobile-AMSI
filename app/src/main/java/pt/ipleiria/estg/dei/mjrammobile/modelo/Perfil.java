@@ -5,7 +5,7 @@ public class Perfil {
     private String nib,email,telemovel,nomes,dataregisto;
 
     public Perfil( String nib, String email, String telemovel, String nomes,String dataregisto, int id){
-        System.out.println(email);
+//        System.out.println(email);
         this.nib = nib;
         this.email  = email;
         this.telemovel = telemovel;
