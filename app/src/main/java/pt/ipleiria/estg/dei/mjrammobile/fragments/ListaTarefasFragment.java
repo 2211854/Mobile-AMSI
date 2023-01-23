@@ -59,9 +59,16 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
+                Bundle arguments = new Bundle();
+                arguments.putInt("ID_VOO", id_voo);
+                arguments.putInt("ID_TAREFA", (int) id);
+                fragment.setArguments(arguments);
+
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, new DetalhesTarefaFragment());
+                fr.replace(R.id.Fl_menu, fragment);
                 fr.commit();
+
             }});
         ET_search = v.findViewById(R.id.ET_search);
         //Listener para o enviar para outro fragment

@@ -87,7 +87,6 @@ public class AdicionarTarefaFragment extends Fragment implements HangarListener,
                 ED_designacao = v.findViewById(R.id.ED_designacao);
                 sp_add_recurso = v.findViewById(R.id.sp_add_recurso);
                 sp_add_hangar = v.findViewById(R.id.sp_add_hangar);
-                quantidade = Integer.parseInt(ED_quantidade.getText().toString());
                 for (Recurso recurso:recursos) {
                     if (recurso.getNome() == sp_add_recurso.getSelectedItem().toString()){
                         recursoId = recurso.getId()+"";
@@ -99,7 +98,7 @@ public class AdicionarTarefaFragment extends Fragment implements HangarListener,
                     }
                 }
                 if(isTarefaValido()) {
-                    Tarefa tarefa = new Tarefa(0, id_voo, hangarId, recursoId, "planeada", ED_designacao.getText() + "", quantidade);
+                    Tarefa tarefa = new Tarefa(0, id_voo, hangarId, recursoId, "planeada", ED_designacao.getText() + "", ED_quantidade.getText() + "");
                     Singleton.getInstance(getContext()).adicionarTarefaAPI(tarefa, getContext());
                     ListaTarefasFragment fragment = new ListaTarefasFragment();
                     Bundle arguments = new Bundle();

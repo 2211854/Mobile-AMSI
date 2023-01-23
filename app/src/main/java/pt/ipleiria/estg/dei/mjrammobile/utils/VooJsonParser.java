@@ -17,6 +17,7 @@ package pt.ipleiria.estg.dei.mjrammobile.utils;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Perfil;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Recurso;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
+    import pt.ipleiria.estg.dei.mjrammobile.modelo.TarefaSingle;
     import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
 
 
@@ -57,7 +58,7 @@ public class VooJsonParser {
                 String id_recurso = tarefa.getString("id_recurso");
                 String designacao = tarefa.getString("designacao");
                 String estado = tarefa.getString("estado");
-                int quantidade = tarefa.getInt("quantidade");
+                String quantidade = tarefa.getString("quantidade");
                 Tarefa auxTarefa = new Tarefa(id, id_voo, id_hangar, id_recurso, estado, designacao, quantidade);
                 tarefas.add(auxTarefa);
             }
@@ -101,6 +102,30 @@ public class VooJsonParser {
         }
         return aviao;
     }
+
+    public static TarefaSingle parserJsonTarefaSingle(JSONObject response) {
+        TarefaSingle tarefaSingle = null;
+        try {
+            int id = response.getInt("id");
+            int id_voo = response.getInt("id_voo");
+            String username_funcionario_registo = response.getString("username_funcionario_registo");
+            String designacao = response.getString("designacao");
+            String hangar = response.getString("id_hangar");
+            String recurso = response.getString("id_recurso");
+            String estado = response.getString("estado");
+            String quantidade = response.getString("quantidade");
+            String data_registo = response.getString("data_registo");
+            String data_inicio = response.getString("data_inicio");
+            String data_final = response.getString("data_conclusao");
+
+            tarefaSingle = new TarefaSingle(id ,id_voo,username_funcionario_registo, designacao,estado,recurso,  hangar,  quantidade,data_registo,data_inicio,data_final);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tarefaSingle;
+    }
+
 
     /*public static ArrayList<Ocupacao> parserJsonOcupacoes(JSONObject response) {
         ArrayList<Ocupacao> ocupacoes = new ArrayList<>();
@@ -172,7 +197,7 @@ public class VooJsonParser {
             String id_recurso = tarefa.getString("id_recurso");
             String designacao = tarefa.getString("designacao");
             String estado = tarefa.getString("estado");
-            int quantidade = tarefa.getInt("quantidade");
+            String quantidade = tarefa.getString("quantidade");
             auxTarefas = new Tarefa(id, id_voo, id_hangar, id_recurso, designacao, estado, quantidade);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -48,28 +48,29 @@
             android:textSize="15sp"/>
 
     </TableRow>
-    <TableRow android:background="@drawable/table_detalhes_meio">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:padding="8sp"
-            android:text="@string/estado"
-            android:textColor="@color/black"
-            android:textSize="20sp">
-        </TextView>
 
-        <TextView
-            android:id="@+id/tv_tarefa_estado"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:padding="8sp"
-            android:textColor="@color/black"
-            android:text="Concluido"
-            android:textSize="15sp"/>
-    </TableRow>
+
+        <TableRow android:background="@drawable/table_detalhes_meio">
+            <TextView
+                android:id="@+id/tv_tarefa_estado_teste"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="8sp"
+                android:text="@string/estado"
+                android:textColor="@color/black"
+                android:textSize="20sp">
+            </TextView>
+
+
+            <Spinner
+                android:id="@+id/sp_tarefa_estado"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:padding="8sp"
+                android:textColor="@color/black" />
+        </TableRow>
 
     <TableRow android:background="@drawable/table_detalhes_meio">
         <TextView
@@ -199,7 +200,7 @@
         android:layout_weight="0.01" />
 
     <Button
-        android:id="@+id/btnListaEliminar"
+        android:id="@+id/btnTarefaEliminar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_login"

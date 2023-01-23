@@ -28,6 +28,9 @@ public class MyBDHelper extends SQLiteOpenHelper {
     private static final String TABLE_RECURSO="recurso";
     private static final String NOME = "nome",UNIDADEMEDIDA = "unidadeMedida";
 
+    private static final String TABLE_TAREFA_SINGLE="tarefaSingle";
+    private static final String DATA_INICIO="data_inicio",DATA_REGISTO="data_registo",DATA_FINAL="data_final", USERNAME_FUNCIONARIO_REGISTO = "username_funcionario_registo";
+
 
 
 
@@ -94,6 +97,22 @@ public class MyBDHelper extends SQLiteOpenHelper {
                 ")";
         sqLiteDatabase.execSQL(sqlCreateTableRecurso);
 
+        String sqlCreateTableTarefaSingle ="CREATE TABLE " + TABLE_TAREFA_SINGLE+ "(" +
+                ID + " BIGINT  PRIMARY KEY, " +
+                DESIGNACAO  + " VARCHAR NOT NULL, " +
+                ID_VOO  + " BIGINT NOT NULL, " +
+                USERNAME_FUNCIONARIO_REGISTO  + " VARCHAR NOT NULL, " +
+                ID_HANGAR  + " VARCHAR NOT NULL, " +
+                ID_RECURSO  + " VARCHAR NOT NULL, " +
+                ESTADO  + " TEXT CHECK(estado in ('cancelado', 'concluido', 'planeada')) NOT NULL, " +
+                QUANTIDADE  + " VARCHAR, " +
+                DATA_REGISTO  + " VARCHAR, " +
+                DATA_INICIO  + " VARCHAR, " +
+                DATA_FINAL  + " VARCHAR " +
+                ")";
+        sqLiteDatabase.execSQL(sqlCreateTableTarefaSingle);
+
+
     }
 
     @Override
@@ -115,6 +134,9 @@ public class MyBDHelper extends SQLiteOpenHelper {
 
         String sqlDeleteTableRecurso ="DROP TABLE IF EXISTS " + TABLE_RECURSO;
         sqLiteDatabase.execSQL(sqlDeleteTableRecurso);
+
+        String sqlDeleteTableTarefaSingle ="DROP TABLE IF EXISTS " + TABLE_TAREFA_SINGLE;
+        sqLiteDatabase.execSQL(sqlDeleteTableTarefaSingle);
 
         onCreate(sqLiteDatabase);
     }
@@ -292,7 +314,7 @@ public class MyBDHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_TAREFA, new String[]{ID, ID_VOO,ID_HANGAR, ID_RECURSO, ESTADO,DESIGNACAO, QUANTIDADE}, null, null, null, null, null);
         if(cursor.moveToFirst()){
             do {
-                Tarefa auxTarefa = new Tarefa(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3) , cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+                Tarefa auxTarefa = new Tarefa(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3) , cursor.getString(4), cursor.getString(5), cursor.getString(6));
 
                 tarefas.add(auxTarefa);
             }while (cursor.moveToNext());
@@ -300,17 +322,18 @@ public class MyBDHelper extends SQLiteOpenHelper {
         }
         return tarefas;
     }
-
+//------------------------------------------------------------------------AVIAO------------------------------------------------------------------
     public Aviao adicionarAviaoBD(Aviao aviao)
     {
+        removerAllAviao();
         //adicionar um aviao a bd
         ContentValues values = new ContentValues();
         values.put(ID, aviao.getId());
         values.put(COMBUSTIVELATUAL, aviao.getCombustivelatual());
-        values.put(COMBUSTIVELMAXIMO, aviao.getCombustivelatual());
-        values.put(OCUPACAOECONOMICA, aviao.getCombustivelatual());
-        values.put(OCUPACAOBUSINESS, aviao.getCombustivelatual());
-        values.put(OCUPACAOPRIMEIRA, aviao.getCombustivelatual());
+        values.put(COMBUSTIVELMAXIMO, aviao.getCombustivelmaximo());
+        values.put(OCUPACAOECONOMICA, aviao.getOcupacaoeconomica());
+        values.put(OCUPACAOBUSINESS, aviao.getOcupacaobusiness());
+        values.put(OCUPACAOPRIMEIRA, aviao.getOcupacaoprimeira());
         // db.insert retorna -1 em caso de erro ou o id que foi criado
         int id = (int)db.insert(TABLE_AVIAO, null, values);
         if(id>-1)
@@ -337,13 +360,6 @@ public class MyBDHelper extends SQLiteOpenHelper {
         }else{
             return null;
         }
-    }
-
-
-    public void removerAllAviao()
-    {
-        //remover todos os aviao da bd
-        db.delete(TABLE_AVIAO, null, null);
     }
 
     public Hangar adicionarHangarBD(Hangar hangar)
@@ -414,5 +430,73 @@ public class MyBDHelper extends SQLiteOpenHelper {
         }
         return recursos;
     }
+
+
+    //-------------------------------------------------------------TAREFA_SINGLE------------------------------------------------------------------------
+    public TarefaSingle adicionarTarefaSingleBD(TarefaSingle tarefaSingle)
+    {
+        removerAllTarefaSingle();
+        //adicionar um aviao a bd
+        ContentValues values = new ContentValues();
+        values.put(ID, tarefaSingle.getId());
+        values.put(DESIGNACAO, tarefaSingle.getDesignacao());
+        values.put(ID_VOO, tarefaSingle.getId_voo());
+        values.put(USERNAME_FUNCIONARIO_REGISTO, tarefaSingle.getUsername_funcionario_registo());
+        values.put(ID_HANGAR, tarefaSingle.getHangar());
+        values.put(ID_RECURSO, tarefaSingle.getRecurso());
+        values.put(ESTADO, tarefaSingle.getEstado());
+        values.put(QUANTIDADE, tarefaSingle.getEstado());
+        values.put(DATA_REGISTO, tarefaSingle.getData_registo());
+        values.put(DATA_INICIO, tarefaSingle.getData_inicio());
+        values.put(DATA_FINAL, tarefaSingle.getData_final());
+        // db.insert retorna -1 em caso de erro ou o id que foi criado
+        int id = (int)db.insert(TABLE_TAREFA_SINGLE, null, values);
+        if(id>-1)
+        {
+            tarefaSingle.setId(tarefaSingle.getId());
+            return tarefaSingle;
+        }
+        return null;
+    }
+
+    public Boolean editarTarefaSingleBD(TarefaSingle tarefaSingle)
+    {
+        removerAllTarefaSingle();
+        //adicionar um aviao a bd
+        ContentValues values = new ContentValues();
+        values.put(DESIGNACAO, tarefaSingle.getDesignacao());
+        values.put(ID_VOO, tarefaSingle.getId_voo());
+        values.put(USERNAME_FUNCIONARIO_REGISTO, tarefaSingle.getUsername_funcionario_registo());
+        values.put(ID_HANGAR, tarefaSingle.getHangar());
+        values.put(ID_RECURSO, tarefaSingle.getRecurso());
+        values.put(ESTADO, tarefaSingle.getEstado());
+        values.put(QUANTIDADE, tarefaSingle.getEstado());
+        values.put(DATA_REGISTO, tarefaSingle.getData_registo());
+        values.put(DATA_INICIO, tarefaSingle.getData_inicio());
+        values.put(DATA_FINAL, tarefaSingle.getData_final());
+        // db.insert retorna -1 em caso de erro ou o id que foi criado
+        return db.update(TABLE_TAREFA_SINGLE, values, ID+"=?", new String[]{tarefaSingle.getId()+""})==1;
+    }
+
+
+    public void removerAllTarefaSingle()
+    {
+        //remover todos os aviao da bd
+        db.delete(TABLE_TAREFA_SINGLE, null, null);
+    }
+
+    public TarefaSingle getAllTarefaSingleBD(){
+        Cursor cursor = db.query(TABLE_TAREFA_SINGLE, new String[]{ID,ID_VOO,USERNAME_FUNCIONARIO_REGISTO,DESIGNACAO,ID_HANGAR,ID_RECURSO,ESTADO,QUANTIDADE,DATA_REGISTO,DATA_INICIO,DATA_FINAL}, null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            TarefaSingle auxTarefaSingle = new TarefaSingle(cursor.getInt(0), cursor.getInt(1),cursor.getString(2), cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getString(7),cursor.getString(8),cursor.getString(9),cursor.getString(10));
+            cursor.close();
+            return auxTarefaSingle;
+
+        }else{
+            return null;
+        }
+    }
+
+
 }
 

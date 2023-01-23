@@ -28,6 +28,7 @@ import pt.ipleiria.estg.dei.mjrammobile.listeners.AviaoListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.HangarListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.LoginListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.RecursoListener;
+import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefaSingleListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.PerfilListener;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.VoosListener;
@@ -51,6 +52,7 @@ public class Singleton {
     private RecursoListener recursosListener;
     private HangarListener hangarListener;
     private PerfilListener perfilListener;
+    private TarefaSingleListener tarefaSingleListener;
 
     private ArrayList<Voo> voos;
     private MyBDHelper myBDHelper;
@@ -60,6 +62,7 @@ public class Singleton {
     private ArrayList<Hangar> hangares;
     private Perfil perfil;
     private Aviao aviao;
+    private TarefaSingle tarefaSingle;
 
     public static synchronized Singleton getInstance(Context context){
         if(instance == null)
@@ -76,6 +79,11 @@ public class Singleton {
     public void setTarefasListener(TarefasListener tarefasListener) {
         this.tarefasListener = tarefasListener;
     }
+
+    public void setTarefaSingleListener(TarefaSingleListener tarefaSingleListener) {
+        this.tarefaSingleListener = tarefaSingleListener;
+    }
+
     public void setPerfilListener(PerfilListener perfilListener){
         this.perfilListener = perfilListener;
     }
@@ -209,6 +217,101 @@ public class Singleton {
             volleyQueue.add(req);
         }
     }
+
+    public void getTarefaSingleAPI(int id_tarefa, final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "tarefa/"+ id_tarefa+"/tarefainformation" + mUrlAPIAccessToken + token;
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+            if (tarefaSingleListener !=null)
+            {
+                tarefaSingleListener.onRefreshTarefaSingle(myBDHelper.getAllTarefaSingleBD());
+            }
+        }else
+        {
+            JsonObjectRequest req=new JsonObjectRequest(Request.Method.GET, mUrl, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    tarefaSingle = VooJsonParser.parserJsonTarefaSingle(response);
+                    adicionarTarefaSingleBD(tarefaSingle);
+
+                    if (tarefaSingleListener!=null)
+                    {
+                        tarefaSingleListener.onRefreshTarefaSingle(tarefaSingle);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+
+    public void editarTarefaSingleAPI(final TarefaSingle tarefaSingle, final Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "tarefa/"+ tarefaSingle.getId() + mUrlAPIAccessToken + token;
+        if (!VooJsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+            StringRequest req = new StringRequest(Request.Method.PUT, mUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    editarTarefaSingleDB(tarefaSingle);
+                    if (tarefaSingleListener != null) {
+                        tarefaSingleListener.onRefreshTarefaSingle(tarefaSingle);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("estado", tarefaSingle.getEstado());
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+    }
+
+    public void removerTarefaSingleAPI(final TarefaSingle tarefaSingle, final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MainActivity.TOKEN, null);
+        String mUrl = mUrlAPIBase+ "tarefa/"+ tarefaSingle.getId() + mUrlAPIAccessToken + token;
+        if (!VooJsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            StringRequest req = new StringRequest(Request.Method.DELETE, mUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    myBDHelper.removerAllTarefaSingle();
+                    if (tarefaSingleListener!=null)
+                    {
+                        tarefaSingleListener.onRefreshTarefaSingle(tarefaSingle);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
 
 
     public void getAviaoAPI(int id_voo, final Context context){
@@ -400,7 +503,7 @@ public class Singleton {
             }
         }
     }
-    public void removerTarefaAPI(final Tarefa tarefa, final Context context){
+    /*public void removerTarefaAPI(final Tarefa tarefa, final Context context){
         if (!VooJsonParser.isConnectionInternet(context)){
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         }else
@@ -418,7 +521,7 @@ public class Singleton {
             });
             volleyQueue.add(req);
         }
-    }
+    }*/
 
     //buscar tudo a base dados voo
     public ArrayList<Voo> getVoosBD() { // return da copia dos Voos
@@ -532,6 +635,9 @@ public class Singleton {
     public void adicionarAviaoBD(Aviao A) {
         myBDHelper.adicionarAviaoBD(A);}
 
+    public void adicionarTarefaSingleBD(TarefaSingle T) {
+        myBDHelper.adicionarTarefaSingleBD(T);}
+
     //remover Tarefa
     public void removerTarefaBD(int id)
     {
@@ -539,5 +645,14 @@ public class Singleton {
         if (auxTarefa!=null)
             myBDHelper.removerTarefaBD(id);
     }
+
+    public void editarTarefaSingleDB(TarefaSingle t)
+    {
+            myBDHelper.editarTarefaSingleBD(t);
+
+    }
+
+
+
 
 }
