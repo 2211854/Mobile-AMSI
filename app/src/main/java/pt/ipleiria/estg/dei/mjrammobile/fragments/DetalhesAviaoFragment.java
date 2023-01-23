@@ -18,6 +18,7 @@ import pt.ipleiria.estg.dei.mjrammobile.adaptadores.ListaTarefasAdaptador;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.AviaoListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Aviao;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
+import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,14 +82,18 @@ public class DetalhesAviaoFragment extends Fragment implements AviaoListener {
         btnListaTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListaTarefasFragment fragment = new ListaTarefasFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt("ID_VOO", id_voo);
-                fragment.setArguments(arguments);
+                if (!VooJsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                }else {
+                    ListaTarefasFragment fragment = new ListaTarefasFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("ID_VOO", id_voo);
+                    fragment.setArguments(arguments);
 
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, fragment);
-                fr.commit();
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.Fl_menu, fragment);
+                    fr.commit();
+                }
             }
         });
 

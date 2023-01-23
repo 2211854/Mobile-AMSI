@@ -22,14 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/custom_input_login"
-        android:drawableStart="@drawable/ic_email_login"
+        android:drawableStart="@drawable/ic_username_login"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="@string/txt_email"
+        android:hint="@string/txt_username"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:text="aulas@amsi.pt"
         android:textSize="17sp" />
     <Space
         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
         android:background="@drawable/custom_button_login"
         android:backgroundTint="@color/dourado_icon"
         android:onClick="onClickLogin"
-        android:text="Login"
+        android:text="INICIAR SESSÃO"
         android:textColor="@android:color/white" />
 
     <Space

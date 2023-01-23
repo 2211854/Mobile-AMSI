@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +28,7 @@ import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefasListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Tarefa;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Voo;
+import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 public class ListaTarefasFragment extends Fragment implements TarefasListener {
 
@@ -59,15 +61,19 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt("ID_VOO", id_voo);
-                arguments.putInt("ID_TAREFA", (int) id);
-                fragment.setArguments(arguments);
+                if (!VooJsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                }else {
+                    DetalhesTarefaFragment fragment = new DetalhesTarefaFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("ID_VOO", id_voo);
+                    arguments.putInt("ID_TAREFA", (int) id);
+                    fragment.setArguments(arguments);
 
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, fragment);
-                fr.commit();
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.Fl_menu, fragment);
+                    fr.commit();
+                }
 
             }});
         ET_search = v.findViewById(R.id.ET_search);
@@ -76,14 +82,18 @@ public class ListaTarefasFragment extends Fragment implements TarefasListener {
         FB_Add_tarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AdicionarTarefaFragment fragment = new AdicionarTarefaFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt("ID_VOO", id_voo);
-                fragment.setArguments(arguments);
+                if (!VooJsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                }else {
+                    AdicionarTarefaFragment fragment = new AdicionarTarefaFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("ID_VOO", id_voo);
+                    fragment.setArguments(arguments);
 
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu,fragment);
-                fr.commit();
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.Fl_menu, fragment);
+                    fr.commit();
+                }
             }
         });
 

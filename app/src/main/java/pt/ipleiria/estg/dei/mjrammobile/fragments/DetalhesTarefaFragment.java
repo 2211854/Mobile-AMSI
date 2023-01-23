@@ -27,6 +27,7 @@ import pt.ipleiria.estg.dei.mjrammobile.R;
 import pt.ipleiria.estg.dei.mjrammobile.listeners.TarefaSingleListener;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.Singleton;
 import pt.ipleiria.estg.dei.mjrammobile.modelo.TarefaSingle;
+import pt.ipleiria.estg.dei.mjrammobile.utils.VooJsonParser;
 
 public class DetalhesTarefaFragment extends Fragment implements TarefaSingleListener {
     private int id_tarefa,id_voo;
@@ -81,14 +82,19 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
         btnListaTarefa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListaTarefasFragment fragment = new ListaTarefasFragment();
-                Bundle arguments = new Bundle();
-                arguments.putInt("ID_VOO", id_voo);
-                fragment.setArguments(arguments);
 
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.Fl_menu, fragment);
-                fr.commit();
+                if (!VooJsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                }else {
+                    ListaTarefasFragment fragment = new ListaTarefasFragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putInt("ID_VOO", id_voo);
+                    fragment.setArguments(arguments);
+
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.Fl_menu, fragment);
+                    fr.commit();
+                }
             }
         });
 
@@ -142,9 +148,13 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             fabGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println(spinner.getSelectedItem().toString());
-                    TarefaSingle.setEstado(spinner.getSelectedItem().toString());
-                    Singleton.getInstance(getContext()).editarTarefaSingleAPI(TarefaSingle, getContext());
+                    if (!VooJsonParser.isConnectionInternet(getContext())) {
+                        Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                    } else {
+                        TarefaSingle.setEstado(spinner.getSelectedItem().toString());
+                        Singleton.getInstance(getContext()).editarTarefaSingleAPI(TarefaSingle, getContext());
+
+                    }
                 }
 
             });
@@ -152,33 +162,37 @@ public class DetalhesTarefaFragment extends Fragment implements TarefaSingleList
             btnEliminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Eliminar tarefa!")
-                            .setMessage("Tem a certeza que pretende eliminar esta tarefa?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                    if (!VooJsonParser.isConnectionInternet(getContext())){
+                        Toast.makeText(getContext(), "Sem ligação à internet", Toast.LENGTH_LONG).show();
+                    }else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Eliminar tarefa!")
+                                .setMessage("Tem a certeza que pretende eliminar esta tarefa?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                                    Singleton.getInstance(getContext()).removerTarefaSingleAPI(TarefaSingle, getContext());
-                                    ListaTarefasFragment fragment = new ListaTarefasFragment();
-                                    Bundle arguments = new Bundle();
-                                    arguments.putInt("ID_VOO", id_voo);
-                                    fragment.setArguments(arguments);
+                                        Singleton.getInstance(getContext()).removerTarefaSingleAPI(TarefaSingle, getContext());
+                                        ListaTarefasFragment fragment = new ListaTarefasFragment();
+                                        Bundle arguments = new Bundle();
+                                        arguments.putInt("ID_VOO", id_voo);
+                                        fragment.setArguments(arguments);
 
-                                    FragmentTransaction fr = getFragmentManager().beginTransaction();
-                                    fr.replace(R.id.Fl_menu, fragment);
-                                    fr.commit();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    //Nao fazer nada
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_delete)
-                            .show();
+                                        FragmentTransaction fr = getFragmentManager().beginTransaction();
+                                        fr.replace(R.id.Fl_menu, fragment);
+                                        fr.commit();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        //Nao fazer nada
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_delete)
+                                .show();
+                    }
                 }
             });
 
