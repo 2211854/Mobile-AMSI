@@ -106,7 +106,7 @@ public class DetalhesAviaoFragment extends Fragment implements AviaoListener {
     public void onRefreshAviao(Aviao aviao) {
         if(aviao != null){
             float percentagem = 100*aviao.getCombustivelatual()/aviao.getCombustivelmaximo();
-            tv_combustivel.setText(aviao.getCombustivelatual() + "(" + percentagem + "% )");
+            tv_combustivel.setText(aviao.getCombustivelatual() + " Litros (" + percentagem + "% )");
             tv_first_Classe.setText(aviao.getOcupacaoprimeira() + " ");
             tv_Business.setText(aviao.getOcupacaobusiness() + " ");
             tv_Economica.setText(aviao.getOcupacaoeconomica() + " ");
